@@ -20,7 +20,7 @@ const SitesPage = ({ sites }) => (
       {sites
         .sort((a, b) => (a.name < b.name ? -1 : 1))
         .map((site) => (
-            <Center>
+            <Center key={site.name}>
                 <SiteCard site={site} />
             </Center>
         ))}

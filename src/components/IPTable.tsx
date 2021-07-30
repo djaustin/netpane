@@ -54,9 +54,10 @@ const IPTable: FC<IPTableProps> = ({addresses, tableProps, ...boxProps}) => {
       <Table mt={4} {...tableProps} {...getTableProps()}>
         <Thead>
           {headerGroups.map((headerGroup) => (
-            <Tr {...headerGroup.getHeaderGroupProps()}>
+            <Tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <Th
+                  key={column.id}
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                 >
                   {column.render("Header")}
@@ -78,9 +79,9 @@ const IPTable: FC<IPTableProps> = ({addresses, tableProps, ...boxProps}) => {
           {rows.map((row) => {
             prepareRow(row)
             return (
-              <Tr {...row.getRowProps()}>
+              <Tr key={row.id} {...row.getRowProps()}>
                 {row.cells.map((cell) => (
-                  <Td {...cell.getCellProps()}>
+                  <Td key={cell.value} {...cell.getCellProps()}>
                     {cell.render("Cell")}
                   </Td>
                 ))}
