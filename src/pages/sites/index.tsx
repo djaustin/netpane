@@ -33,7 +33,6 @@ export const getStaticProps: GetStaticProps = async () => {
       headers: {
         'Authorization': `Token 0123456789abcdef0123456789abcdef01234567` 
       }})
-
 const sites = res.data.results.map(site => ({
     name: site.display,
     vlanCount: site.vlan_count
