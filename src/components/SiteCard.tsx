@@ -12,8 +12,9 @@ import {
   useTheme,
   Link,
 } from "@chakra-ui/react";
-import Case from "case";
+import Case, { random } from "case";
 import NextLink from "next/link";
+import { useEffect, useState } from "react";
 
 const gradients = [
   `linear(to-t, #00C9FF, #92FE9D)`,
@@ -51,17 +52,16 @@ const gradients = [
 ];
 
 const colors = [
-'red.700',
-'orange.700',
-'yellow.700',
-'green.700',
-'teal.700',
-'blue.700',
-'cyan.700',
-'purple.700',
-'pink.700',
-]
-
+  "red",
+  "orange",
+  "yellow",
+  "green",
+  "teal",
+  "blue",
+  "cyan",
+  "purple",
+  "pink",
+] as const;
 export type SiteCardProps = {
   site: {
     name: string;
@@ -71,8 +71,14 @@ export type SiteCardProps = {
 };
 
 export default function SiteCard({ site }: SiteCardProps) {
-  const theme = useTheme();
-  const opacity = useColorModeValue(1, 0.5);
+  const [color, setColor] = useState<typeof colors[number]>("blue");
+  const avatarBackground = useColorModeValue(`${color}.300`, `${color}.700`);
+  useEffect(() => {
+    const colorIndex = Math.floor(Math.random() * colors.length);
+    const randomColor = colors[colorIndex];
+    setColor(randomColor);
+  }, []);
+
   return (
     <Box
       maxW={"270px"}
@@ -82,13 +88,15 @@ export default function SiteCard({ site }: SiteCardProps) {
       boxShadow={"2xl"}
       rounded={"md"}
     >
-
       <Flex justify={"center"} mt={-12}>
         <Avatar
+          bg={avatarBackground}
+          color={useColorModeValue("gray.700", "gray.200")}
           size={"xl"}
           name={site.name}
-          
-            border="4px solid white"
+          borderWidth="8px"
+          borderStyle="solid"
+          borderColor={useColorModeValue("white", "gray.800")}
         />
       </Flex>
 

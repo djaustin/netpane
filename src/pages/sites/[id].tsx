@@ -9,6 +9,7 @@ import axios from "axios";
 import Case from "case";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/dist/client/router";
+import Head from "next/head";
 import React, { useState } from "react";
 import IPTable from "../../components/IPTable";
 import { IPAddress, NetboxResponse, Prefix } from "../../models/netboxAPI";
@@ -22,6 +23,9 @@ const SitePage = ({ addresses }) => {
   );
   return (
     <>
+      <Head>
+        <title>{Case.title(query.id as string)} IP Addresses</title>
+      </Head>
       <Stack
         spacing={8}
         align={[null, null, null, "center"]}
@@ -103,7 +107,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       }
     )
   );
-  
+
   const ipResponses = await Promise.all(ipRequestPromises);
   const addresses = ipResponses.flatMap((response) => response.data.results);
   return {

@@ -99,7 +99,6 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
             <Stack
               borderRadius="lg"
               spacing="0"
-              bg={path ==='/sites' ? selectedColor : undefined}
               _hover={{
                 bg: hoverColor,
               }}
@@ -109,12 +108,14 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
               mx="4"
               p="4"
             >
-              <Icon mr="4" fontSize="16" as={FiMap} />
+              <AccordionButton p='0'>
+                 <Icon mr="4" fontSize="16" as={FiMap} />
+                 <Box flex='1' textAlign='left'>
               
-              <Box ml="0" cursor='pointer' flex={1} onClick={() => push('/sites')} >
-                Sites
-              </Box>
-              <AccordionButton flex={0} p="0">
+              Sites
+                 </Box>
+             
+             
                 <AccordionIcon />
               </AccordionButton>
             </Stack>
