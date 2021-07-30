@@ -1,56 +1,33 @@
 import {
-  Link as ChakraLink,
   Text,
-  Code,
-  List,
-  ListIcon,
-  ListItem,
-} from '@chakra-ui/react'
-import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
+  Container,
+  Input,
+  InputLeftAddon,
+  InputGroup,
+  useColorModeValue,
+  Button,
+  Divider,
+  Link
+} from "@chakra-ui/react";
+import { FiSearch } from "react-icons/fi";
+import React from "react";
 
-import { Hero } from '../components/Hero'
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
-import { DarkModeSwitch } from '../components/DarkModeSwitch'
-import { CTA } from '../components/CTA'
-import { Footer } from '../components/Footer'
+import { Hero } from "../components/Hero";
+import NextLink from "next/link";
 
-const Index = () => (
-  <Container height="100vh">
-    <Hero />
-    <Main>
-      <Text>
-        Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
-        <Code>typescript</Code>.
-      </Text>
+const Index = () => {
+  const inputBackground = useColorModeValue('gray.200', 'gray.800');
 
-      <List spacing={3} my={0}>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink
-            isExternal
-            href="https://chakra-ui.com"
-            flexGrow={1}
-            mr={2}
-          >
-            Chakra UI <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
-            Next.js <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-      </List>
-    </Main>
+  return (<Container centerContent>
+    <Hero title="Netpane" />
+    <Text mt={8}>Get started with a search or view available sites</Text>
+    <InputGroup mt={5} border='2px' shadow='lg' rounded='lg'>
+      <InputLeftAddon border='none' borderRight='1px'>
+        <FiSearch />
+      </InputLeftAddon>
+      <Input border='none' placeholder='"192.168.1.39", "mysql-db01.qa.example.corp", "App Server"' />
+    </InputGroup>
+  </Container>)
+};
 
-    <DarkModeSwitch />
-    <Footer>
-      <Text>Next ❤️ Chakra</Text>
-    </Footer>
-    <CTA />
-  </Container>
-)
-
-export default Index
+export default Index;
