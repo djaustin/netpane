@@ -1,75 +1,118 @@
-import { Table, Thead, Tbody, Tr, Th, Td, chakra, TableProps, Input, InputGroup, InputLeftAddon, useColorModeValue, Box, BoxProps } from "@chakra-ui/react"
-import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
-import { useTable, useSortBy, Column, useGlobalFilter } from "react-table"
-
-import { FC } from "react";
-import { IPAddress } from "../models/netboxAPI";
-import React from "react";
-import { FiSearch } from "react-icons/fi";
+import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  BoxProps,
+  chakra,
+  Stack,
+  Table,
+  TableProps,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
+import { IPTableItem } from "models/IPTableData";
+import React, { FC } from "react";
+import {
+  Column,
+  useFilters,
+  useGlobalFilter,
+  useSortBy,
+  useTable,
+} from "react-table";
+import DefaultColumnFilter from "./DefaultColumnFilter";
+import SelectColumnFilter from "./SelectColumnFilter";
 import TableGlobalFilter from "./TableGlobalFilter";
 
 export type IPTableProps = {
-    addresses: IPAddress[],
-    tableProps: TableProps
-} & BoxProps
+  addresses: IPTableItem[];
+  tableProps: TableProps;
+} & BoxProps;
 
+const IPTable: FC<IPTableProps> = ({ addresses, tableProps, ...boxProps }) => {
+  const data = React.useMemo(() => addresses, [addresses]);
 
-const IPTable: FC<IPTableProps> = ({addresses, tableProps, ...boxProps}) => {
-    const data = React.useMemo(
-      () => addresses,
-      [addresses],
-    )
-  
-    const columns = React.useMemo<Column<IPAddress>[]>(
-      () => [
-        {
-          Header: "Address",
-          accessor: "display",
-        },
-        {
-          Header: "DNS Name",
-          accessor: "dns_name",
-        },
-        {
-          Header: "Description",
-          accessor: "description",
-        },
-      ],
-      [],
-    )
-  
-    const {
-      getTableProps,
-      getTableBodyProps,
-      headerGroups,
-      rows,
-      prepareRow,
-      state,
-      setGlobalFilter
-    } = useTable({ columns, data }, useGlobalFilter, useSortBy)
-  
-    return (
+  const columns = React.useMemo<Column<IPTableItem>[]>(
+    () => [
+      {
+        Header: "VLAN",
+        accessor: "vlan",
+        Filter: SelectColumnFilter,
+        filter: "includes",
+      },
+      {
+        Header: "Address",
+        accessor: "display",
+      },
+      {
+        Header: "DNS Name",
+        accessor: "dns_name",
+      },
+      {
+        Header: "Description",
+        accessor: "description",
+      },
+    ],
+    []
+  );
+
+  // Add default text filter 
+  const defaultColumn = React.useMemo(
+    () => ({
+      Filter: DefaultColumnFilter,
+    }),
+    []
+  );
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    state,
+    setGlobalFilter,
+  } = useTable(
+    { columns, data, defaultColumn },
+    useFilters,
+    useGlobalFilter,
+    useSortBy
+  );
+
+  return (
     <Box {...boxProps}>
-    <TableGlobalFilter globalFilter={state.globalFilter} preGlobalFilteredRows={rows} setGlobalFilter={setGlobalFilter} />
+      <TableGlobalFilter
+        globalFilter={state.globalFilter}
+        setGlobalFilter={setGlobalFilter}
+      />
       <Table mt={4} {...tableProps} {...getTableProps()}>
         <Thead>
           {headerGroups.map((headerGroup) => (
             <Tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <Th
-                  key={column.id}
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                >
-                  {column.render("Header")}
-                  <chakra.span pl="4">
-                    {column.isSorted ? (
-                      column.isSortedDesc ? (
-                        <TriangleDownIcon aria-label="sorted descending" />
-                      ) : (
-                        <TriangleUpIcon aria-label="sorted ascending" />
-                      )
-                    ) : null}
-                  </chakra.span>
+                <Th key={column.id} {...column.getHeaderProps()}>
+                  <Stack
+                    direction={{base: 'column', xl: 'row'}}
+                    align={{base: 'left', xl: 'center'}}
+                  >
+                    <Box {...column.getSortByToggleProps()}>
+                      {column.render("Header")}
+                      <chakra.span pl={2}>
+                        {column.isSorted ? (
+                          column.isSortedDesc ? (
+                            <TriangleDownIcon aria-label="sorted descending" />
+                          ) : (
+                            <TriangleUpIcon aria-label="sorted ascending" />
+                          )
+                        ) : null}
+                      </chakra.span>
+                    </Box>
+
+                    <Box>
+                      {column.canFilter && column.render("Filter")}
+                    </Box>
+                  </Stack>
                 </Th>
               ))}
             </Tr>
@@ -77,7 +120,7 @@ const IPTable: FC<IPTableProps> = ({addresses, tableProps, ...boxProps}) => {
         </Thead>
         <Tbody {...getTableBodyProps()}>
           {rows.map((row) => {
-            prepareRow(row)
+            prepareRow(row);
             return (
               <Tr key={row.id} {...row.getRowProps()}>
                 {row.cells.map((cell) => (
@@ -86,12 +129,12 @@ const IPTable: FC<IPTableProps> = ({addresses, tableProps, ...boxProps}) => {
                   </Td>
                 ))}
               </Tr>
-            )
+            );
           })}
         </Tbody>
       </Table>
-      </Box>
-    )
-}
+    </Box>
+  );
+};
 
-export default IPTable
+export default IPTable;

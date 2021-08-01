@@ -18,14 +18,17 @@ import {
   Text,
   useColorModeValue,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
-import useAxios from "axios-hooks";
+import useSWR from "swr";
 import { useRouter } from "next/dist/client/router";
 import NextLink from "next/link";
 import React, { ReactNode, ReactText } from "react";
 import { IconType } from "react-icons";
 import { FiHome, FiLogOut, FiMap, FiMapPin, FiMenu } from "react-icons/fi";
 import { DarkModeSwitch } from "./DarkModeSwitch";
+import { Site } from "models/__generated__/netboxAPI";
+import jsonFetcher from "integrations/jsonFetcher";
 
 export default function SimpleSidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -62,15 +65,18 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
-  const [{ data, loading, error }, refetch] = useAxios({
-    url: "http://localhost:8000/api/dcim/sites",
-    headers: {
-      Authorization: `Token 0123456789abcdef0123456789abcdef01234567`,
-    },
-  });
-  const { asPath: path, push } = useRouter();
+  const { data, error } = useSWR<Site[]>('/api/sites', jsonFetcher)
+  const toast = useToast()
+  const toastId = 'site-fetch-error'
+  if(error && !toast.isActive(toastId)) {
+    toast({
+      id: toastId,
+      description: 'Unable to fetch sites, please refresh to try again.',
+      status: 'error',
+      isClosable: true
+    })
+  }
   const hoverColor = useColorModeValue("blue.100", "blue.900");
-  const selectedColor = useColorModeValue("gray.100", "gray.700");
   return (
     <Box
       bg={useColorModeValue("white", "gray.900")}
@@ -121,7 +127,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
             </Stack>
 
             <AccordionPanel pt='0' mt='0'>
-              {data?.results?.map((site) => (
+              {data?.map((site) => (
                 <NavItem
                   key={site.slug}
                   icon={FiMapPin}
@@ -152,6 +158,7 @@ const NavItem = ({ icon, children, link, ...rest }: NavItemProps) => {
   const isCurrentPage = path === link;
   const hoverColor = useColorModeValue("blue.100", "blue.900");
   const selectedColor = useColorModeValue("gray.100", "gray.700");
+
   return (
     <Link as={NextLink} href={link} style={{ textDecoration: "none" }}>
       <Flex

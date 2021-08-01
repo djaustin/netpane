@@ -1,12 +1,12 @@
-import { ChakraProvider, Progress } from '@chakra-ui/react'
-
-import theme from '../theme'
-import { AppProps } from 'next/app'
-import SimpleSidebar from '../components/Sidebar'
+import { ChakraProvider, Progress } from "@chakra-ui/react";
+import { AppProps } from "next/app";
+import Head from "next/head";
 import Router from "next/router";
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import SimpleSidebar from "../components/Sidebar";
+import theme from "../theme";
 
-function MyApp ({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const startLoad = () => {
@@ -25,13 +25,27 @@ function MyApp ({ Component, pageProps }: AppProps) {
     };
   }, []);
   return (
-    <ChakraProvider resetCSS theme={theme}>
-      <Progress zIndex='9999' hidden={!loading} position='fixed' top='0' left='0' right='0' isIndeterminate size='xs'/>
-      <SimpleSidebar>
-        <Component {...pageProps} />
-      </SimpleSidebar>
-    </ChakraProvider>
-  )
+    <>
+      <Head>
+        <link rel="shortcut icon" href="/favicon.png" />
+      </Head>
+      <ChakraProvider resetCSS theme={theme}>
+        <Progress
+          zIndex="9999"
+          hidden={!loading}
+          position="fixed"
+          top="0"
+          left="0"
+          right="0"
+          isIndeterminate
+          size="xs"
+        />
+        <SimpleSidebar>
+          <Component {...pageProps} />
+        </SimpleSidebar>
+      </ChakraProvider>
+    </>
+  );
 }
 
-export default MyApp
+export default MyApp;

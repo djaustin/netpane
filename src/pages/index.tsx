@@ -1,33 +1,32 @@
 import {
-  Text,
+  Center,
   Container,
   Input,
-  InputLeftAddon,
   InputGroup,
-  useColorModeValue,
-  Button,
-  Divider,
-  Link,
-  Center,
+  InputLeftAddon,
   SimpleGrid,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import { FiSearch } from "react-icons/fi";
-import React from "react";
-
-import { Hero } from "../components/Hero";
-import NextLink from "next/link";
+import netboxAPI from "integrations/netboxAPI";
+import { NetboxResponse, Site } from "models/__generated__/netboxAPI";
 import { GetStaticProps } from "next";
-import axios from "axios";
-import SiteCard from "../components/SiteCard";
 import Head from "next/head";
+import React from "react";
+import { FiSearch } from "react-icons/fi";
+import { Hero } from "../components/Hero";
+import SiteCard from "../components/SiteCard";
 
-const Index = ({ sites }) => {
+type IndexProps = {
+  sites: Site[]
+}
+
+const Index: React.FC<IndexProps> = ({ sites }) => {
   const inputBackground = useColorModeValue("gray.200", "gray.800");
 
   return (
     <>
       <Head>
-        <title>Netplane</title>
+        <title>Netpane</title>
       </Head>
       <Container centerContent>
         <Hero title="Netpane" />
@@ -43,9 +42,9 @@ const Index = ({ sites }) => {
       </Container>
       <SimpleGrid mt={16} rowGap={10} columns={[1, null, null, 2, null, 3]}>
         {sites
-          .sort((a, b) => (a.name < b.name ? -1 : 1))
+          .sort((a, b) => (a.display < b.display ? -1 : 1))
           .map((site) => (
-            <Center key={site.name}>
+            <Center key={site.id}>
               <SiteCard site={site} />
             </Center>
           ))}
@@ -57,14 +56,7 @@ const Index = ({ sites }) => {
 export default Index;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await axios.get("http://localhost:8000/api/dcim/sites", {
-    headers: {
-      Authorization: `Token 0123456789abcdef0123456789abcdef01234567`,
-    },
-  });
-  const sites = res.data.results.map((site) => ({
-    name: site.display,
-    vlanCount: site.vlan_count,
-  }));
+  const res = await netboxAPI.get<NetboxResponse<Site>>("/dcim/sites");
+  const sites = res.data.results
   return { props: { sites }, revalidate: 5 };
 };

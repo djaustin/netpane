@@ -13,6 +13,7 @@ import {
   Link,
 } from "@chakra-ui/react";
 import Case, { random } from "case";
+import { Site } from "models/__generated__/netboxAPI";
 import NextLink from "next/link";
 import { useEffect, useState } from "react";
 
@@ -63,16 +64,13 @@ const colors = [
   "pink",
 ] as const;
 export type SiteCardProps = {
-  site: {
-    name: string;
-    ipCount: number;
-    vlanCount: number;
-  };
+  site: Site;
 };
 
 export default function SiteCard({ site }: SiteCardProps) {
   const [color, setColor] = useState<typeof colors[number]>("blue");
   const avatarBackground = useColorModeValue(`${color}.300`, `${color}.700`);
+  const cardBackground = useColorModeValue("white", "gray.700")
   useEffect(() => {
     const colorIndex = Math.floor(Math.random() * colors.length);
     const randomColor = colors[colorIndex];
@@ -84,7 +82,7 @@ export default function SiteCard({ site }: SiteCardProps) {
       maxW={"270px"}
       w={"full"}
       mt={12}
-      bg={useColorModeValue("white", "gray.800")}
+      bg={cardBackground}
       boxShadow={"2xl"}
       rounded={"md"}
     >
@@ -96,19 +94,19 @@ export default function SiteCard({ site }: SiteCardProps) {
           name={site.name}
           borderWidth="8px"
           borderStyle="solid"
-          borderColor={useColorModeValue("white", "gray.800")}
+          borderColor={cardBackground}
         />
       </Flex>
 
       <Box p={6}>
         <Stack spacing={0} align={"center"} mb={5}>
           <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
-            {site.name}
+            {site.display}
           </Heading>
         </Stack>
         <Stack direction={"row"} justify={"center"} spacing={6}>
           <Stack spacing={0} align={"center"}>
-            <Text fontWeight={600}>{site.vlanCount}</Text>
+            <Text fontWeight={600}>{site.vlan_count}</Text>
             <Text fontSize={"sm"} color={"gray.500"}>
               VLANs
             </Text>
