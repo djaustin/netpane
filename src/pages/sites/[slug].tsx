@@ -4,28 +4,28 @@ import {
   Center,
   CircularProgress,
   Heading,
-  HStack,
+  Link,
   Stack,
   Text,
-  ThemingProps
+  ThemingProps,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import Case from "case";
 import IPTable from "components/IPTable";
+import config from "config";
 import netboxAPI from "integrations/netboxAPI";
 import { IPTableItem } from "models/IPTableData";
 import { NetboxResponse, Site } from "models/__generated__/netboxAPI";
 import { GetServerSideProps } from "next";
-import { useRouter } from "next/dist/client/router";
 import Head from "next/head";
 import React, { useState } from "react";
 import useSWR from "swr";
 
 type SitePageProps = {
-  site: Site
-}
+  site: Site;
+};
 
-const SitePage = ({site}: SitePageProps) => {
-  const { data, error } = useSWR<IPTableItem[]>(
+const SitePage = ({ site }: SitePageProps) => {
+  const { data } = useSWR<IPTableItem[]>(
     `/api/ip-addresses/${site.slug}`
   );
   const [tableSize, setTableSize] =
@@ -33,7 +33,7 @@ const SitePage = ({site}: SitePageProps) => {
   const [tableVariant, setTableVariant] = useState<"striped" | "simple">(
     "simple"
   );
-
+  const linkColor = useColorModeValue("blue.500", "blue.600");
   return (
     <>
       <Head>
@@ -51,7 +51,7 @@ const SitePage = ({site}: SitePageProps) => {
         >
           {site.display}
         </Heading>
-        <HStack spacing={2}>
+        <Stack direction={{ base: "column", md: "row" }} spacing={2}>
           <ButtonGroup isAttached size="sm" variant="outline">
             <Button
               isActive={tableVariant === "simple"}
@@ -86,7 +86,7 @@ const SitePage = ({site}: SitePageProps) => {
               Comfortable
             </Button>
           </ButtonGroup>
-        </HStack>
+        </Stack>
       </Stack>
       {data ? (
         data.length > 0 ? (
@@ -99,8 +99,15 @@ const SitePage = ({site}: SitePageProps) => {
         ) : (
           <Center h="90vh" w="100%">
             <Text size="lg">
-              No results found. Create a VLAN with an IP address range in
-              Netbox to view IP addresses here.
+              No results found.{" "}
+              <Link
+                isExternal
+                fontWeight="bold"
+                color={linkColor}
+                href={config.baseURL}
+              >
+                Create IP addresses in Netbox
+              </Link>
             </Text>
           </Center>
         )
@@ -113,18 +120,18 @@ const SitePage = ({site}: SitePageProps) => {
   );
 };
 
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const slug = ctx.query.slug as string;
+  const results = (
+    await netboxAPI.get<NetboxResponse<Site[]>>(`/dcim/sites?slug=${slug}`)
+  ).data.results;
+  if (results.length <= 0) return { notFound: true };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => { 
-  const slug = ctx.query.slug as string
-  const results = (await netboxAPI.get<NetboxResponse<Site[]>>(`/dcim/sites?slug=${slug}`)).data.results
-  if (results.length <= 0) return {notFound: true}
-
-  ctx.res.setHeader('Cache-Control', 'max-age=60, stale-while-revalidate=120')
+  ctx.res.setHeader("Cache-Control", "max-age=60, stale-while-revalidate=120");
   return {
     props: {
-      site: results[0]
-    }
-  }
-
-}
+      site: results[0],
+    },
+  };
+};
 export default SitePage;

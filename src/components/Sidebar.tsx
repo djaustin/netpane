@@ -91,7 +91,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <Text fontSize="2xl" fontWeight="bold">
           Netpane
         </Text>
-        <Box display={{ base: "none", md: "block" }}>
+        <Box display={{ base: "none", md: "block" }} alignItems='center'>
           <DarkModeSwitch />
         </Box>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />

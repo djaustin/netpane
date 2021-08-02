@@ -112,7 +112,7 @@ export default function SiteCard({ site }: SiteCardProps) {
             </Text>
           </Stack>
         </Stack>
-        <Link as={NextLink} href={`/sites/${Case.lower(site.name)}`}>
+        <Link as={NextLink} href={`/sites/${site.slug}`}>
           <Button
             w={"full"}
             mt={8}

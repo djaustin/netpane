@@ -1,13 +1,13 @@
-import { useColorMode, Switch } from '@chakra-ui/react'
+import { useColorMode, Switch, Button } from '@chakra-ui/react'
+import React from 'react'
+import { FiMoon, FiSun } from 'react-icons/fi'
 
 export const DarkModeSwitch = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   const isDark = colorMode === 'dark'
   return (
-    <Switch
-      color='green'
-      isChecked={isDark}
-      onChange={toggleColorMode}
-    />
+    <Button variant='ghost' onClick={toggleColorMode}>
+      { isDark ? <FiSun /> : <FiMoon />}
+    </Button>
   )
 }

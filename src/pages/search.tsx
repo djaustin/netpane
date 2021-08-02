@@ -1,14 +1,13 @@
 import {
   Box,
   Center,
-  CircularProgress,
-  Divider,
-  Heading,
+  CircularProgress, Heading
 } from "@chakra-ui/react";
 import IPTable from "components/IPTable";
 import jsonFetcher from "integrations/jsonFetcher";
 import { SearchResult } from "models/SearchResult";
 import Head from "next/head";
+import Error from 'next/error'
 import { useRouter } from "next/router";
 import React from "react";
 import useSWR from "swr";
@@ -19,12 +18,15 @@ const SearchPage: React.FC = () => {
     `/api/search?query=${query.query}`,
     jsonFetcher
   );
+
+  const resultCount = data => data.flatMap((result) => result.results).length
+  if(error) return <Error statusCode={500}/>
   return (
     <>
       <Head>
         <title>
           {data
-            ? `(${data.flatMap((result) => result.results).length}) Results`
+            ? `(${resultCount(data)}) '${query.query}' results`
             : "Searching..."}
         </title>
       </Head>
@@ -34,7 +36,7 @@ const SearchPage: React.FC = () => {
       >
         {data
           ? data.length > 0
-            ? `Search results for '${query.query}'`
+            ? `${resultCount(data)} results for '${query.query}'`
             : `No results for '${query.query}'`
           : `Searching for '${query.query}'...`}
       </Heading>

@@ -11,7 +11,3 @@ export const Hero = ({ title }: { title: string }) => (
     <Heading fontSize={['6xl', '9xl']}>{title}</Heading>
   </Flex>
 )
-
-Hero.defaultProps = {
-  title: 'with-chakra-ui-typescript',
-}
