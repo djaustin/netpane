@@ -27,10 +27,11 @@ import TableGlobalFilter from "./TableGlobalFilter";
 
 export type IPTableProps = {
   addresses: IPTableItem[];
-  tableProps: TableProps;
+  allowGlobalFilter?: boolean
+  tableProps?: TableProps;
 } & BoxProps;
 
-const IPTable: FC<IPTableProps> = ({ addresses, tableProps, ...boxProps }) => {
+const IPTable: FC<IPTableProps> = ({ allowGlobalFilter, addresses, tableProps, ...boxProps }) => {
   const data = React.useMemo(() => addresses, [addresses]);
 
   const columns = React.useMemo<Column<IPTableItem>[]>(
@@ -82,10 +83,10 @@ const IPTable: FC<IPTableProps> = ({ addresses, tableProps, ...boxProps }) => {
 
   return (
     <Box {...boxProps}>
-      <TableGlobalFilter
+      { allowGlobalFilter && <TableGlobalFilter
         globalFilter={state.globalFilter}
         setGlobalFilter={setGlobalFilter}
-      />
+      />}
       <Table mt={4} {...tableProps} {...getTableProps()}>
         <Thead>
           {headerGroups.map((headerGroup) => (

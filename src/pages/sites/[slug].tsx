@@ -94,12 +94,13 @@ const SitePage = ({site}: SitePageProps) => {
             mt={8}
             tableProps={{ size: tableSize, variant: tableVariant }}
             addresses={data}
+            allowGlobalFilter
           />
         ) : (
           <Center h="90vh" w="100%">
             <Text size="lg">
               No results found. Create a VLAN with an IP address range in
-              Netbox.
+              Netbox to view IP addresses here.
             </Text>
           </Center>
         )
@@ -117,7 +118,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const slug = ctx.query.slug as string
   const results = (await netboxAPI.get<NetboxResponse<Site[]>>(`/dcim/sites?slug=${slug}`)).data.results
   if (results.length <= 0) return {notFound: true}
-  console.log(results[0])
+
+  ctx.res.setHeader('Cache-Control', 'max-age=60, stale-while-revalidate=120')
   return {
     props: {
       site: results[0]

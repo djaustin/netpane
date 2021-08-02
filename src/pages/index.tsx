@@ -32,7 +32,7 @@ const Index: React.FC<IndexProps> = ({ sites }) => {
     if (event.key === "Enter") searchIfValue()
   };
   const searchIfValue = () => {
-    if (searchTerm) router.push(`/search?q=${searchTerm}`);
+    if (searchTerm) router.push(`/search?query=${searchTerm}`);
   }
 
 
