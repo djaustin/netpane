@@ -1,24 +1,23 @@
 import {
-  Box,
-  Button,
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
   Center,
   CircularProgress,
   Heading,
   HStack,
-  Link,
-  Tooltip,
 } from "@chakra-ui/react";
 import IPTable from "components/IPTable";
 import jsonFetcher from "integrations/jsonFetcher";
 import { SearchResult } from "models/SearchResult";
-import Head from "next/head";
 import Error from "next/error";
+import Head from "next/head";
 import { useRouter } from "next/router";
+import pluralize from "pluralize";
 import React from "react";
 import useSWR from "swr";
-import NextLink from "next/link";
-import { FiArrowRight } from "react-icons/fi";
-import pluralize from "pluralize";
 
 const SearchPage: React.FC = () => {
   const { query } = useRouter();
@@ -34,10 +33,9 @@ const SearchPage: React.FC = () => {
       <Head>
         <title>
           {data
-            ? `(${resultCount(data)}) '${query.query}' ${pluralize(
-                "result",
-                resultCount(data)
-              )}`
+            ? `${pluralize("result", resultCount(data), true)} for '${
+                query.query
+              }'`
             : "Searching..."}
         </title>
       </Head>
@@ -49,28 +47,30 @@ const SearchPage: React.FC = () => {
           ? data.length > 0
             ? `${pluralize("result", resultCount(data), true)} for '${
                 query.query
-              }'`
+              }' in ${pluralize("site", data.length, true)}`
             : `No results for '${query.query}'`
           : `Searching for '${query.query}'...`}
       </Heading>
       {data ? (
-        data
-          .sort((a, b) => (a.site.display < b.site.display ? -1 : 1))
-          .map((result) => {
-            return (
-              <Box key={result.site.id} mt={10}>
-                <HStack align="baseline" spacing={4}>
-                  <Heading size="lg">{result.site.display}</Heading>
-                    <Link as={NextLink} href={`/sites/${result.site.slug}`}>
-                      <Button variant="link">
-                        <FiArrowRight />
-                      </Button>
-                    </Link>
-                </HStack>
-                <IPTable mt={4} addresses={result.results} />
-              </Box>
-            );
-          })
+        <Accordion defaultIndex={data.map((_, i) => i)} allowMultiple mt={10}>
+          {data
+            .sort((a, b) => (a.site.display < b.site.display ? -1 : 1))
+            .map((result) => {
+              return (
+                <AccordionItem key={result.site.id}>
+                  <AccordionButton>
+                    <HStack w="full" justify="space-between">
+                      <Heading size="lg">{`${result.site.display} (${result.results.length})`}</Heading>
+                      <AccordionIcon />
+                    </HStack>
+                  </AccordionButton>
+                  <AccordionPanel pt={0}>
+                    <IPTable pb={10} addresses={result.results} />
+                  </AccordionPanel>
+                </AccordionItem>
+              );
+            })}
+        </Accordion>
       ) : (
         <Center h="90vh" w="100%">
           <CircularProgress isIndeterminate />
