@@ -1,0 +1,9 @@
+prefix,status,vlan,site
+192.168.1.0/24,active,1,Mordor
+192.168.2.0/24,active,2,Gondor
+192.168.3.0/24,active,3,Mordor
+192.168.4.0/24,active,4,Rivendell
+192.168.5.0/24,active,5,Rivendell
+192.168.6.0/24,active,6,Mordor
+192.168.7.0/24,active,1,Mordor
+192.168.8.0/28,active,2,Gondor

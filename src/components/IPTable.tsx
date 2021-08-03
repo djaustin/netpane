@@ -22,7 +22,7 @@ import {
   useTable,
 } from "react-table";
 import DefaultColumnFilter from "./DefaultColumnFilter";
-import IPExternalLink from "./IPExternalLink";
+import AddressActionsCell from "./AddressActionsCell";
 import SelectColumnFilter from "./SelectColumnFilter";
 import TableGlobalFilter from "./TableGlobalFilter";
 
@@ -64,7 +64,7 @@ const IPTable: FC<IPTableProps> = ({
         Header: "Actions",
         accessor: "url",
         disableFilters: true,
-        Cell: IPExternalLink,
+        Cell: AddressActionsCell,
       },
     ],
     []
@@ -109,8 +109,8 @@ const IPTable: FC<IPTableProps> = ({
                 {headerGroup.headers.map((column) => (
                   <Th key={column.id} {...column.getHeaderProps()}>
                     <Stack
-                      direction={{ base: "column", xl: "row" }}
-                      align={{ base: "left", xl: "center" }}
+                      direction={{ base: "column", '2xl': "row" }}
+                      align={{ base: "left", '2xl': "center" }}
                     >
                       <Box {...column.getSortByToggleProps()}>
                         {column.render("Header")}

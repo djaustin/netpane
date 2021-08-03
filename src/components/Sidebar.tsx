@@ -25,7 +25,7 @@ import { useRouter } from "next/dist/client/router";
 import NextLink from "next/link";
 import React, { ReactNode, ReactText } from "react";
 import { IconType } from "react-icons";
-import { FiHome, FiLogOut, FiMap, FiMapPin, FiMenu } from "react-icons/fi";
+import { FiHome, FiMap, FiMapPin, FiMenu } from "react-icons/fi";
 import { DarkModeSwitch } from "./DarkModeSwitch";
 import { Site } from "models/__generated__/netboxAPI";
 import jsonFetcher from "integrations/jsonFetcher";
@@ -96,7 +96,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Box>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-      <Flex mt={4} direction="column">
+      <Flex h='full' overflowY='scroll' mt={4} direction="column">
         <NavItem icon={FiHome} link={"/"}>
           Home
         </NavItem>
@@ -139,10 +139,6 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
             </AccordionPanel>
           </AccordionItem>
         </Accordion>
-
-        <NavItem mt={10} icon={FiLogOut} link={"#"}>
-          Logout
-        </NavItem>
       </Flex>
     </Box>
   );

@@ -1,4 +1,5 @@
 import { Input } from "@chakra-ui/react";
+import pluralize from "pluralize";
 import React from "react";
 
 
@@ -14,7 +15,7 @@ const DefaultColumnFilter = ({
         onChange={e => {
           setFilter(e.target.value || undefined)
         }}
-        placeholder={`Search ${count} records...`}
+        placeholder={`Search ${pluralize('record', count, true)}...`}
       />
     )
   }

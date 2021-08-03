@@ -1,16 +1,24 @@
 import {
   Box,
+  Button,
   Center,
-  CircularProgress, Heading
+  CircularProgress,
+  Heading,
+  HStack,
+  Link,
+  Tooltip,
 } from "@chakra-ui/react";
 import IPTable from "components/IPTable";
 import jsonFetcher from "integrations/jsonFetcher";
 import { SearchResult } from "models/SearchResult";
 import Head from "next/head";
-import Error from 'next/error'
+import Error from "next/error";
 import { useRouter } from "next/router";
 import React from "react";
 import useSWR from "swr";
+import NextLink from "next/link";
+import { FiArrowRight } from "react-icons/fi";
+import pluralize from "pluralize";
 
 const SearchPage: React.FC = () => {
   const { query } = useRouter();
@@ -19,14 +27,17 @@ const SearchPage: React.FC = () => {
     jsonFetcher
   );
 
-  const resultCount = data => data.flatMap((result) => result.results).length
-  if(error) return <Error statusCode={500}/>
+  const resultCount = (data) => data.flatMap((result) => result.results).length;
+  if (error) return <Error statusCode={500} />;
   return (
     <>
       <Head>
         <title>
           {data
-            ? `(${resultCount(data)}) '${query.query}' results`
+            ? `(${resultCount(data)}) '${query.query}' ${pluralize(
+                "result",
+                resultCount(data)
+              )}`
             : "Searching..."}
         </title>
       </Head>
@@ -36,7 +47,9 @@ const SearchPage: React.FC = () => {
       >
         {data
           ? data.length > 0
-            ? `${resultCount(data)} results for '${query.query}'`
+            ? `${pluralize("result", resultCount(data), true)} for '${
+                query.query
+              }'`
             : `No results for '${query.query}'`
           : `Searching for '${query.query}'...`}
       </Heading>
@@ -46,7 +59,14 @@ const SearchPage: React.FC = () => {
           .map((result) => {
             return (
               <Box key={result.site.id} mt={10}>
-                <Heading size="lg">{result.site.display}</Heading>
+                <HStack align="baseline" spacing={4}>
+                  <Heading size="lg">{result.site.display}</Heading>
+                    <Link as={NextLink} href={`/sites/${result.site.slug}`}>
+                      <Button variant="link">
+                        <FiArrowRight />
+                      </Button>
+                    </Link>
+                </HStack>
                 <IPTable mt={4} addresses={result.results} />
               </Box>
             );

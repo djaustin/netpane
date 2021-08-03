@@ -3,11 +3,11 @@ import React from "react";
 import { FiEdit, FiEdit2, FiExternalLink } from "react-icons/fi";
 import { Cell } from "react-table";
 
-type IPExternalLinkProps = {
+type AddressActionsCellProps = {
   cell: Cell;
 };
 
-const IPExternalLink: React.FC<IPExternalLinkProps> = ({ cell: { value } }) => (
+const AddressActionsCell: React.FC<AddressActionsCellProps> = ({ cell: { value } }) => (
   <HStack spacing={4}>
     <Tooltip hasArrow label='View in Netbox'>
       <Link isExternal href={`${value.replace("/api", "")}`}>
@@ -22,4 +22,4 @@ const IPExternalLink: React.FC<IPExternalLinkProps> = ({ cell: { value } }) => (
   </HStack>
 );
 
-export default IPExternalLink;
+export default AddressActionsCell;
