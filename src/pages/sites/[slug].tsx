@@ -3,13 +3,13 @@ import {
   ButtonGroup,
   Center,
   CircularProgress,
-  Heading,
   Link,
   Stack,
   Text,
   ThemingProps,
   useColorModeValue,
 } from "@chakra-ui/react";
+import GradientHeading from "components/GradientHeading";
 import IPTable from "components/IPTable";
 import config from "config";
 import netboxAPI from "integrations/netboxAPI";
@@ -25,9 +25,7 @@ type SitePageProps = {
 };
 
 const SitePage = ({ site }: SitePageProps) => {
-  const { data } = useSWR<IPTableItem[]>(
-    `/api/ip-addresses/${site.slug}`
-  );
+  const { data } = useSWR<IPTableItem[]>(`/api/ip-addresses/${site.slug}`);
   const [tableSize, setTableSize] =
     useState<ThemingProps<"Table">["size"]>("md");
   const [tableVariant, setTableVariant] = useState<"striped" | "simple">(
@@ -45,12 +43,7 @@ const SitePage = ({ site }: SitePageProps) => {
         justify="space-between"
         direction={["column", null, null, "row"]}
       >
-        <Heading
-          bgGradient="linear(90deg, #00d2ff 0%, #3a47d5 100%)"
-          bgClip="text"
-        >
-          {site.display}
-        </Heading>
+        <GradientHeading>{site.display}</GradientHeading>
         <Stack direction={{ base: "column", md: "row" }} spacing={2}>
           <ButtonGroup isAttached size="sm" variant="outline">
             <Button

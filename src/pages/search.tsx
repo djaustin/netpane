@@ -10,6 +10,7 @@ import {
   HStack,
   Stack,
 } from "@chakra-ui/react";
+import GradientHeading from "components/GradientHeading";
 import IPTable from "components/IPTable";
 import SearchInput from "components/SearchInput";
 import jsonFetcher from "integrations/jsonFetcher";
@@ -42,11 +43,7 @@ const SearchPage: React.FC = () => {
         </title>
       </Head>
       <Stack direction={{ base: "column", lg: "row" }} spacing={10}>
-        <Heading
-          flexShrink={0}
-          bgGradient="linear(90deg, #00d2ff 0%, #3a47d5 100%)"
-          bgClip="text"
-        >
+        <GradientHeading flexShrink={0}>
           {data
             ? data.length > 0
               ? `${pluralize("result", resultCount(data), true)} for '${
@@ -54,7 +51,7 @@ const SearchPage: React.FC = () => {
                 }' in ${pluralize("site", data.length, true)}`
               : `No results for '${query.query}'`
             : `Searching for '${query.query}'...`}
-        </Heading>
+        </GradientHeading>
       </Stack>
       <SearchInput mt={4} hasButton />
       {data ? (

@@ -1,4 +1,5 @@
-import { Center, Container, HStack, SimpleGrid } from "@chakra-ui/react";
+import { Center, Container, Heading, HStack, SimpleGrid } from "@chakra-ui/react";
+import GradientHeading from "components/GradientHeading";
 import SearchInput from "components/SearchInput";
 import SiteCardSkeleton from "components/SiteCardSkeleton";
 import jsonFetcher from "integrations/jsonFetcher";
@@ -6,7 +7,6 @@ import { Site } from "models/__generated__/netboxAPI";
 import Head from "next/head";
 import React from "react";
 import useSWR from "swr";
-import { Hero } from "../components/Hero";
 import SiteCard from "../components/SiteCard";
 
 const Index: React.FC = () => {
@@ -19,7 +19,10 @@ const Index: React.FC = () => {
         <title>Netpane</title>
       </Head>
       <Container centerContent>
-        <Hero title="Netpane" />
+          
+        <GradientHeading fontSize={['6xl','9xl']}>
+          Netpane
+        </GradientHeading>
         <HStack align="center" mt={5} w="100%">
           <SearchInput hasButton w="full" />
         </HStack>
