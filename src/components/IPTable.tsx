@@ -101,7 +101,7 @@ const IPTable: FC<IPTableProps> = ({
           setGlobalFilter={setGlobalFilter}
         />
       )}
-      <Box overflowX="scroll">
+      <Box overflowX="auto">
         <Table mt={4} {...tableProps} {...getTableProps()}>
           <Thead>
             {headerGroups.map((headerGroup) => (

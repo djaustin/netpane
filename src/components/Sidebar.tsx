@@ -96,7 +96,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Box>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-      <Flex h='full' overflowY='scroll' mt={4} direction="column">
+      <Flex h='full' overflowY='auto' mt={4} direction="column">
         <NavItem icon={FiHome} link={"/"}>
           Home
         </NavItem>
