@@ -60,7 +60,7 @@ const SearchPage: React.FC = () => {
                 <AccordionItem key={result.site.id}>
                   <AccordionButton>
                     <HStack w="full" justify="space-between">
-                      <Heading size="lg">{`${result.site.display} (${result.results.length})`}</Heading>
+                      <Heading size="md">{`${result.site.display} (${result.results.length})`}</Heading>
                       <AccordionIcon />
                     </HStack>
                   </AccordionButton>
