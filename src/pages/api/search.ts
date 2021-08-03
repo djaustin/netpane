@@ -14,13 +14,15 @@ const handler: NextApiHandler<SearchResult[]> = async (req, res) => {
   const sitePrefixResponse = await netboxAPI.get<NetboxResponse<Prefix>>(
     `/ipam/prefixes`
   );
-
+  console.log(sitePrefixResponse.data.results)
   const ipRequestPromises = sitePrefixResponse.data.results.map((prefix) =>
     getIPAddressesWithPrefix(prefix, req.query.query as string)
   );
 
   const ipResponses = await Promise.all(ipRequestPromises);
   const addresses = ipResponses.flat();
+  console.log(addresses)
+
   // Extract sites with matches
   const siteMap: Record<number, SearchResult> = {};
   addresses.forEach((address) => {
@@ -41,6 +43,8 @@ const handler: NextApiHandler<SearchResult[]> = async (req, res) => {
 
   res.status(200).json(Object.values(siteMap));
 };
+
+
 async function getIPAddressesWithPrefix(
   prefix: Prefix,
   query: string
