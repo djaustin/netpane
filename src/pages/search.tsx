@@ -8,8 +8,10 @@ import {
   CircularProgress,
   Heading,
   HStack,
+  Stack,
 } from "@chakra-ui/react";
 import IPTable from "components/IPTable";
+import SearchInput from "components/SearchInput";
 import jsonFetcher from "integrations/jsonFetcher";
 import { SearchResult } from "models/SearchResult";
 import Error from "next/error";
@@ -39,18 +41,22 @@ const SearchPage: React.FC = () => {
             : "Searching..."}
         </title>
       </Head>
-      <Heading
-        bgGradient="linear(90deg, #00d2ff 0%, #3a47d5 100%)"
-        bgClip="text"
-      >
-        {data
-          ? data.length > 0
-            ? `${pluralize("result", resultCount(data), true)} for '${
-                query.query
-              }' in ${pluralize("site", data.length, true)}`
-            : `No results for '${query.query}'`
-          : `Searching for '${query.query}'...`}
-      </Heading>
+      <Stack direction={{ base: "column", lg: "row" }} spacing={10}>
+        <Heading
+          flexShrink={0}
+          bgGradient="linear(90deg, #00d2ff 0%, #3a47d5 100%)"
+          bgClip="text"
+        >
+          {data
+            ? data.length > 0
+              ? `${pluralize("result", resultCount(data), true)} for '${
+                  query.query
+                }' in ${pluralize("site", data.length, true)}`
+              : `No results for '${query.query}'`
+            : `Searching for '${query.query}'...`}
+        </Heading>
+      </Stack>
+      <SearchInput mt={4} hasButton />
       {data ? (
         <Accordion defaultIndex={data.map((_, i) => i)} allowMultiple mt={10}>
           {data
