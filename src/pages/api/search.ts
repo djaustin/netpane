@@ -12,7 +12,7 @@ import { SearchResult } from "models/SearchResult";
 const handler: NextApiHandler<SearchResult[]> = async (req, res) => {
   if (!req.query.query) return res.status(400).end();
   const sitePrefixResponse = await netboxAPI.get<NetboxResponse<Prefix>>(
-    `/ipam/prefixes`
+    `/ipam/prefixes?limit=9999`
   );
   console.log(sitePrefixResponse.data.results)
   const ipRequestPromises = sitePrefixResponse.data.results.map((prefix) =>
@@ -50,7 +50,7 @@ async function getIPAddressesWithPrefix(
   query: string
 ): Promise<(IPAddress & { prefix: Prefix })[]> {
   const res = await netboxAPI.get<NetboxResponse<IPAddress>>(
-    `/ipam/ip-addresses?parent=${prefix.prefix}&q=${query}`
+    `/ipam/ip-addresses?parent=${prefix.prefix}&q=${query}&limit=9999`
   );
 
   return res.data.results.map((address) => ({
