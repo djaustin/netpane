@@ -1,4 +1,10 @@
-import { Center, Container, Heading, HStack, SimpleGrid } from "@chakra-ui/react";
+import {
+  Center,
+  Container,
+  Heading,
+  HStack,
+  SimpleGrid,
+} from "@chakra-ui/react";
 import GradientHeading from "components/GradientHeading";
 import SearchInput from "components/SearchInput";
 import SiteCardSkeleton from "components/SiteCardSkeleton";
@@ -19,10 +25,7 @@ const Index: React.FC = () => {
         <title>Netpane</title>
       </Head>
       <Container centerContent>
-          
-        <GradientHeading fontSize={['6xl','9xl']}>
-          Netpane
-        </GradientHeading>
+        <GradientHeading fontSize={["6xl", "9xl"]}>Netpane</GradientHeading>
         <HStack align="center" mt={5} w="100%">
           <SearchInput hasButton w="full" />
         </HStack>

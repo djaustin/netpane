@@ -25,7 +25,7 @@ const handler: NextApiHandler<SearchResult[]> = async (req, res) => {
   const siteMap: Record<number, SearchResult> = {};
   addresses.forEach((address) => {
     const nestedSite = address.prefix.site;
-    siteMap[nestedSite.id] = {site: nestedSite, results: []};
+    siteMap[nestedSite.id] = { site: nestedSite, results: [] };
   });
 
   // Group each address under its site ID
@@ -36,12 +36,14 @@ const handler: NextApiHandler<SearchResult[]> = async (req, res) => {
 
   // Add addresses to site
   Object.keys(addressesBySiteId).forEach((id) => {
-    siteMap[id].results = addressesBySiteId[id].map(address => ({...address, vlan: address.prefix.vlan?.display_name}))
+    siteMap[id].results = addressesBySiteId[id].map((address) => ({
+      ...address,
+      vlan: address.prefix.vlan?.display_name,
+    }));
   });
 
   res.status(200).json(Object.values(siteMap));
 };
-
 
 async function getIPAddressesWithPrefix(
   prefix: Prefix,

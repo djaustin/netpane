@@ -65,16 +65,16 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
-  const { data, error } = useSWR<Site[]>('/api/sites', jsonFetcher)
-  const toast = useToast()
-  const toastId = 'site-fetch-error'
-  if(error && !toast.isActive(toastId)) {
+  const { data, error } = useSWR<Site[]>("/api/sites", jsonFetcher);
+  const toast = useToast();
+  const toastId = "site-fetch-error";
+  if (error && !toast.isActive(toastId)) {
     toast({
       id: toastId,
-      description: 'Unable to fetch sites, please refresh to try again.',
-      status: 'error',
-      isClosable: true
-    })
+      description: "Unable to fetch sites, please refresh to try again.",
+      status: "error",
+      isClosable: true,
+    });
   }
   const hoverColor = useColorModeValue("blue.100", "blue.900");
   return (
@@ -91,12 +91,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <Text fontSize="2xl" fontWeight="bold">
           Netpane
         </Text>
-        <Box display={{ base: "none", md: "block" }} alignItems='center'>
+        <Box display={{ base: "none", md: "block" }} alignItems="center">
           <DarkModeSwitch />
         </Box>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-      <Flex h='full' overflowY='auto' mt={4} direction="column">
+      <Flex h="full" overflowY="auto" mt={4} direction="column">
         <NavItem icon={FiHome} link={"/"}>
           Home
         </NavItem>
@@ -110,23 +110,21 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
               }}
               align="center"
               direction="row"
-              mt='1'
+              mt="1"
               mx="4"
               p="4"
             >
-              <AccordionButton p='0'>
-                 <Icon mr="4" fontSize="16" as={FiMap} />
-                 <Box flex='1' textAlign='left'>
-              
-              Sites
-                 </Box>
-             
-             
+              <AccordionButton p="0">
+                <Icon mr="4" fontSize="16" as={FiMap} />
+                <Box flex="1" textAlign="left">
+                  Sites
+                </Box>
+
                 <AccordionIcon />
               </AccordionButton>
             </Stack>
 
-            <AccordionPanel pt='0' mt='0'>
+            <AccordionPanel pt="0" mt="0">
               {data?.map((site) => (
                 <NavItem
                   key={site.slug}

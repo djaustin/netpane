@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.5",
@@ -17,10 +18,12 @@
     "axios": "^0.21.1",
     "axios-hooks": "^2.6.3",
     "case": "^1.6.3",
+    "eslint-config-prettier": "^8.3.0",
     "framer-motion": "^4.0.3",
     "lodash": "^4.17.21",
     "next": "latest",
     "pluralize": "^8.0.0",
+    "prettier": "^2.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",

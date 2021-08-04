@@ -1,7 +1,5 @@
-import { extendTheme, withDefaultColorScheme } from '@chakra-ui/react'
-import { createBreakpoints } from '@chakra-ui/theme-tools'
+import { extendTheme, withDefaultColorScheme } from "@chakra-ui/react";
 
+const theme = extendTheme(withDefaultColorScheme({ colorScheme: "blue" }));
 
-const theme = extendTheme(withDefaultColorScheme({ colorScheme: 'blue'}))
-
-export default theme
+export default theme;

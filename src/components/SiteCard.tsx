@@ -70,7 +70,7 @@ export type SiteCardProps = {
 export default function SiteCard({ site }: SiteCardProps) {
   const [color, setColor] = useState<typeof colors[number]>("blue");
   const avatarBackground = useColorModeValue(`${color}.300`, `${color}.700`);
-  const cardBackground = useColorModeValue("white", "gray.700")
+  const cardBackground = useColorModeValue("white", "gray.700");
   useEffect(() => {
     const colorIndex = Math.floor(Math.random() * colors.length);
     const randomColor = colors[colorIndex];

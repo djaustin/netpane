@@ -109,8 +109,8 @@ const IPTable: FC<IPTableProps> = ({
                 {headerGroup.headers.map((column) => (
                   <Th key={column.id} {...column.getHeaderProps()}>
                     <Stack
-                      direction={{ base: "column", '2xl': "row" }}
-                      align={{ base: "left", '2xl': "center" }}
+                      direction={{ base: "column", "2xl": "row" }}
+                      align={{ base: "left", "2xl": "center" }}
                     >
                       <Box {...column.getSortByToggleProps()}>
                         {column.render("Header")}

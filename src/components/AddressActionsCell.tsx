@@ -7,17 +7,19 @@ type AddressActionsCellProps = {
   cell: Cell;
 };
 
-const AddressActionsCell: React.FC<AddressActionsCellProps> = ({ cell: { value } }) => (
+const AddressActionsCell: React.FC<AddressActionsCellProps> = ({
+  cell: { value },
+}) => (
   <HStack spacing={4}>
-    <Tooltip hasArrow label='View in Netbox'>
+    <Tooltip hasArrow label="View in Netbox">
       <Link isExternal href={`${value.replace("/api", "")}`}>
         <FiExternalLink />
       </Link>
     </Tooltip>
-    <Tooltip hasArrow label='Edit in Netbox'>
-        <Link isExternal href={`${value.replace("/api", "")}edit`}>
+    <Tooltip hasArrow label="Edit in Netbox">
+      <Link isExternal href={`${value.replace("/api", "")}edit`}>
         <FiEdit2 />
-        </Link>
+      </Link>
     </Tooltip>
   </HStack>
 );

@@ -23,9 +23,9 @@ const TableGlobalFilter: React.FC<TableGlobalFilterProps> = ({
         <FiSearch />
       </InputLeftAddon>
       <Input
-        value={globalFilter || ''}
+        value={globalFilter || ""}
         onChange={(e) => {
-            setGlobalFilter(e.target.value || undefined)
+          setGlobalFilter(e.target.value || undefined);
         }}
         bg={useColorModeValue("gray.200", "gray.700")}
         placeholder='"192.168.1.39", "mysql-db01.qa.example.corp", "App Server"'
