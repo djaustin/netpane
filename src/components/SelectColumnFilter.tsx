@@ -27,7 +27,7 @@ const SelectColumnFilter: React.FC<SelectColumnFilterProps> = ({
   return (
     <Select
       size="xs"
-      value={filterValue}
+      value={filterValue || ""}
       onChange={(e) => {
         setFilter(e.target.value || undefined);
       }}

@@ -28,6 +28,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
   const [searchTerm, setSearchTerm] = useState<string>("");
   const router = useRouter();
   const backgroundColor = useColorModeValue("gray.200", "gray.800");
+
   const onKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const input = event.target as HTMLInputElement;
     if (event.key === "Enter") searchIfValue();
@@ -35,6 +36,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
   const searchIfValue = () => {
     if (searchTerm) router.push(`/search?query=${searchTerm}`);
   };
+
   return (
     <HStack align="baseline" {...stackProps}>
       <InputGroup variant="filled" {...inputGroupProps}>

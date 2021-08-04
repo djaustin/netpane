@@ -70,7 +70,6 @@ const IPTable: FC<IPTableProps> = ({
     []
   );
 
-  // Add default text filter
   const defaultColumn = React.useMemo(
     () => ({
       Filter: DefaultColumnFilter,
