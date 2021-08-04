@@ -1,4 +1,4 @@
-import { HStack, Link, Tooltip } from "@chakra-ui/react";
+import { Button, HStack, Link, Tooltip } from "@chakra-ui/react";
 import React from "react";
 import { FiEdit2, FiExternalLink } from "react-icons/fi";
 import { Cell } from "react-table";
@@ -10,16 +10,20 @@ type AddressActionsCellProps = {
 const AddressActionsCell: React.FC<AddressActionsCellProps> = ({
   cell: { value },
 }) => (
-  <HStack spacing={4}>
+  <HStack spacing={0}>
     <Tooltip hasArrow label="View in Netbox">
-      <Link isExternal href={`${value.replace("/api", "")}`}>
-        <FiExternalLink />
-      </Link>
+      <Button aria-label="view in Netbox" variant="link">
+        <Link isExternal href={`${value.replace("/api", "")}`}>
+          <FiExternalLink />
+        </Link>
+      </Button>
     </Tooltip>
     <Tooltip hasArrow label="Edit in Netbox">
-      <Link isExternal href={`${value.replace("/api", "")}edit`}>
-        <FiEdit2 />
-      </Link>
+      <Button aria-label="edit in Netbox" variant="link">
+        <Link isExternal href={`${value.replace("/api", "")}edit`}>
+          <FiEdit2 />
+        </Link>
+      </Button>
     </Tooltip>
   </HStack>
 );

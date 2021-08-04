@@ -33,7 +33,7 @@ export default function SimpleSidebar({ children }: { children: ReactNode }) {
         </DrawerContent>
       </Drawer>
       {/* Navbar at top of screen shown on mobile/smaller screens */}
-      <MobileNav display={{ base: "flex", md: "none" }} onOpen={onOpen} />
+      <MobileNav display={{ base: "flex", md: "none" }} onMenuClick={onOpen} />
       {/* box to store main page content */}
       <Box ml={{ base: 0, md: 60 }} p={4}>
         {children}

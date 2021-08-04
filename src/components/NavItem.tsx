@@ -11,7 +11,7 @@ import { IconType } from "react-icons";
 import NextLink from "next/link";
 
 type NavItemProps = FlexProps & {
-  icon: IconType;
+  icon?: IconType;
   link: string;
   children: ReactText;
 };
@@ -26,7 +26,7 @@ const NavItem = ({ icon, children, link, ...rest }: NavItemProps) => {
       <Flex
         align="center"
         p="4"
-        mt={1}
+        mt="1"
         mx="4"
         borderRadius="lg"
         role="group"
@@ -37,7 +37,7 @@ const NavItem = ({ icon, children, link, ...rest }: NavItemProps) => {
         }}
         {...rest}
       >
-        {icon && <Icon mr="4" fontSize="16" _groupHover={{}} as={icon} />}
+        {icon && <Icon mr="4" fontSize="16" as={icon} />}
         {children}
       </Flex>
     </Link>

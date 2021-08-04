@@ -6,7 +6,7 @@ const GradientHeading: React.FC<HeadingProps> = (props) => (
     {...props}
     bgGradient="linear(90deg, #00d2ff 0%, #3a47d5 100%)"
     bgClip="text"
-  ></Heading>
+  />
 );
 
 export default GradientHeading;

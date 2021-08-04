@@ -10,10 +10,10 @@ import React from "react";
 import { FiMenu } from "react-icons/fi";
 import { DarkModeSwitch } from "./DarkModeSwitch";
 
-type MobileNavProps = FlexProps & {
-  onOpen: () => void;
+export type MobileNavProps = FlexProps & {
+  onMenuClick: () => void;
 };
-const MobileNav = ({ onOpen, ...rest }: MobileNavProps) => {
+const MobileNav = ({ onMenuClick, ...rest }: MobileNavProps) => {
   return (
     <Flex
       px={4}
@@ -27,7 +27,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileNavProps) => {
     >
       <IconButton
         variant="ghost"
-        onClick={onOpen}
+        onClick={onMenuClick}
         aria-label="open menu"
         icon={<FiMenu />}
       />
