@@ -21,8 +21,8 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-import DefaultColumnFilter from "./DefaultColumnFilter";
 import AddressActionsCell from "./AddressActionsCell";
+import DefaultColumnFilter from "./DefaultColumnFilter";
 import SelectColumnFilter from "./SelectColumnFilter";
 import TableGlobalFilter from "./TableGlobalFilter";
 

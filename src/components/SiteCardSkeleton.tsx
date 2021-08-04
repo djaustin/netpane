@@ -1,4 +1,4 @@
-import { Box, Flex, Skeleton, SkeletonCircle } from "@chakra-ui/react";
+import { Skeleton } from "@chakra-ui/react";
 import React from "react";
 
 const SiteCardSkeleton = () => (

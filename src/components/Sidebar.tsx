@@ -20,15 +20,15 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import useSWR from "swr";
+import jsonFetcher from "integrations/jsonFetcher";
+import { Site } from "models/__generated__/netboxAPI";
 import { useRouter } from "next/dist/client/router";
 import NextLink from "next/link";
 import React, { ReactNode, ReactText } from "react";
 import { IconType } from "react-icons";
 import { FiHome, FiMap, FiMapPin, FiMenu } from "react-icons/fi";
+import useSWR from "swr";
 import { DarkModeSwitch } from "./DarkModeSwitch";
-import { Site } from "models/__generated__/netboxAPI";
-import jsonFetcher from "integrations/jsonFetcher";
 
 export default function SimpleSidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();

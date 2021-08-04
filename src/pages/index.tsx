@@ -1,10 +1,4 @@
-import {
-  Center,
-  Container,
-  Heading,
-  HStack,
-  SimpleGrid,
-} from "@chakra-ui/react";
+import { Center, Container, HStack, SimpleGrid } from "@chakra-ui/react";
 import GradientHeading from "components/GradientHeading";
 import SearchInput from "components/SearchInput";
 import SiteCardSkeleton from "components/SiteCardSkeleton";

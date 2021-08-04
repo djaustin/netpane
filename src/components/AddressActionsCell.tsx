@@ -1,6 +1,6 @@
 import { HStack, Link, Tooltip } from "@chakra-ui/react";
 import React from "react";
-import { FiEdit, FiEdit2, FiExternalLink } from "react-icons/fi";
+import { FiEdit2, FiExternalLink } from "react-icons/fi";
 import { Cell } from "react-table";
 
 type AddressActionsCellProps = {

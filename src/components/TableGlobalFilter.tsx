@@ -1,12 +1,11 @@
 import {
+  Input,
   InputGroup,
   InputLeftAddon,
   useColorModeValue,
-  Input,
 } from "@chakra-ui/react";
 import React from "react";
 import { FiSearch } from "react-icons/fi";
-import { Row, useAsyncDebounce } from "react-table";
 
 export type TableGlobalFilterProps = {
   globalFilter: string;

@@ -1,18 +1,14 @@
 import {
-  Heading,
   Avatar,
   Box,
-  Center,
-  Image,
-  Flex,
-  Text,
-  Stack,
   Button,
-  useColorModeValue,
-  useTheme,
+  Flex,
+  Heading,
   Link,
+  Stack,
+  Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import Case, { random } from "case";
 import { Site } from "models/__generated__/netboxAPI";
 import NextLink from "next/link";
 import { useEffect, useState } from "react";

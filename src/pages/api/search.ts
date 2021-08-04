@@ -1,13 +1,12 @@
 import netboxAPI from "integrations/netboxAPI";
+import _ from "lodash";
+import { SearchResult } from "models/SearchResult";
 import {
   IPAddress,
-  NestedSite,
   NetboxResponse,
   Prefix,
 } from "models/__generated__/netboxAPI";
 import { NextApiHandler } from "next";
-import _, { add } from "lodash";
-import { SearchResult } from "models/SearchResult";
 
 const handler: NextApiHandler<SearchResult[]> = async (req, res) => {
   if (!req.query.query) return res.status(400).end();
