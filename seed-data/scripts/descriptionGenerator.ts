@@ -20,7 +20,6 @@ for (let i = 0; i < resultCount; i++) {
     const descriptor = descriptors[Math.floor(Math.random()*descriptors.length)]
     descriptor.count++
     const result: ServerDescription = `${descriptor.descriptor} ${descriptor.count}`
-    console.log(result)
     results.push(result)    
 }
 
