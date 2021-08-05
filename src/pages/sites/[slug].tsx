@@ -3,11 +3,14 @@ import {
   ButtonGroup,
   Center,
   CircularProgress,
+  Flex,
+  HStack,
   Link,
   Stack,
   Text,
   ThemingProps,
   useColorModeValue,
+  VStack,
 } from "@chakra-ui/react";
 import GradientHeading from "components/GradientHeading";
 import IPTable from "components/IPTable";
@@ -18,6 +21,7 @@ import { NetboxResponse, Site } from "models/__generated__/netboxAPI";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import React, { useState } from "react";
+import { FiPlus } from "react-icons/fi";
 import useSWR from "swr";
 
 type SitePageProps = {
@@ -32,55 +36,85 @@ const SitePage = ({ site }: SitePageProps) => {
     "simple"
   );
   const linkColor = useColorModeValue("blue.500", "blue.600");
+  const openTab = (url) => {
+    console.log(config);
+    const win = window.open(url, "_blank");
+    if (win) win.focus();
+  };
   return (
     <>
       <Head>
         <title>{site.display} IP Addresses</title>
       </Head>
-      <Stack
-        spacing={8}
-        align={[null, null, null, "center"]}
-        justify="space-between"
-        direction={["column", null, null, "row"]}
-      >
-        <GradientHeading>{site.display}</GradientHeading>
-        <Stack direction={{ base: "column", md: "row" }} spacing={2}>
-          <ButtonGroup isAttached size="sm" variant="outline">
+      <VStack align="start">
+        <Stack
+          w="full"
+          spacing={8}
+          align={[null, null, null, "center"]}
+          justify="space-between"
+          direction={["column", null, null, "row"]}
+        >
+          <GradientHeading>{site.display}</GradientHeading>
+          <Stack direction={{ base: "column", lg: "row" }} spacing={2}>
+        <ButtonGroup colorScheme='green' size="sm" spacing="2">
             <Button
-              isActive={tableVariant === "simple"}
-              onClick={() => setTableVariant("simple")}
+              onClick={() =>
+                openTab(`${config.baseURL}/ipam/vlans/add?site=${site.id}`)
+              }
+              leftIcon={<FiPlus />}
             >
-              Simple
+              VLAN
             </Button>
             <Button
-              isActive={tableVariant === "striped"}
-              onClick={() => setTableVariant("striped")}
+              onClick={() =>
+                openTab(`${config.baseURL}/ipam/prefixes/add?site=${site.id}`)
+              }
+              leftIcon={<FiPlus />}
             >
-              Striped
-            </Button>
-          </ButtonGroup>
-          <ButtonGroup isAttached size="sm" variant="outline">
-            <Button
-              isActive={tableSize === "sm"}
-              onClick={() => setTableSize("sm")}
-            >
-              Compact
-            </Button>
-            <Button
-              isActive={tableSize === "md"}
-              onClick={() => setTableSize("md")}
-            >
-              Standard
-            </Button>
-            <Button
-              isActive={tableSize === "lg"}
-              onClick={() => setTableSize("lg")}
-            >
-              Comfortable
+              Subnet
             </Button>
           </ButtonGroup>
+          <HStack>
+            <ButtonGroup isAttached size="sm" variant="outline">
+              <Button
+                isActive={tableVariant === "simple"}
+                onClick={() => setTableVariant("simple")}
+              >
+                Simple
+              </Button>
+              <Button
+                isActive={tableVariant === "striped"}
+                onClick={() => setTableVariant("striped")}
+              >
+                Striped
+              </Button>
+            </ButtonGroup>
+            <ButtonGroup isAttached size="sm" variant="outline">
+              <Button
+                isActive={tableSize === "sm"}
+                onClick={() => setTableSize("sm")}
+              >
+                Compact
+              </Button>
+              <Button
+                isActive={tableSize === "md"}
+                onClick={() => setTableSize("md")}
+              >
+                Standard
+              </Button>
+              <Button
+                isActive={tableSize === "lg"}
+                onClick={() => setTableSize("lg")}
+              >
+                Comfortable
+              </Button>
+            </ButtonGroup>
+            </HStack>
+          </Stack>
+          
         </Stack>
-      </Stack>
+      </VStack>
+
       {data ? (
         data.length > 0 ? (
           <IPTable
