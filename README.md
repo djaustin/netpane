@@ -8,10 +8,12 @@ A simplistic view of Netbox IPAM. Like a box but without the depth.
 
 ## Features
 
-- Light/dark mode toggle
-- Site summary
-- Cross-site search
-- View and edit in Netbox
+### Site summary
+![site summary](./assets/site-summary.gif)
+### Cross-site search
+![estate search](./assets/estate-search.gif)
+### View and edit in Netbox
+![edit in netbox](./assets/edit-in-netbox.gif)
 
 ## Deployment
 
