@@ -66,7 +66,7 @@ const SearchPage: React.FC = () => {
       <SearchInput
         mt={4}
         hasButton
-        align="flex-start"
+        align="flex-end"
         defaultCheckboxValue={(scope as string)?.split(",")}
       />
       {data ? (
