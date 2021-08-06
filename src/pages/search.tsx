@@ -17,6 +17,7 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import GradientHeading from "components/GradientHeading";
+import IPSearchPanel from "components/IPSearchPanel";
 import IPTable from "components/IPTable";
 import SearchInput from "components/SearchInput";
 import SiteSearchCard from "components/SiteSearchCard";
@@ -89,35 +90,14 @@ const SearchPage: React.FC = () => {
           <TabPanels>
             {scope?.includes("ip-address") && (
               <TabPanel>
-                <Accordion
-                  defaultIndex={data.ipAddresses.map((_, i) => i)}
-                  allowMultiple
-                >
-                  {data?.ipAddresses
-                    .sort((a, b) => (a.site.display < b.site.display ? -1 : 1))
-                    .map((result) => {
-                      return (
-                        <AccordionItem key={result.site.id}>
-                          <AccordionButton>
-                            <HStack w="full" justify="space-between">
-                              <Heading size="md">{`${result.site.display} (${result.results.length})`}</Heading>
-                              <AccordionIcon />
-                            </HStack>
-                          </AccordionButton>
-                          <AccordionPanel pt={0}>
-                            <IPTable pb={10} addresses={result.results} />
-                          </AccordionPanel>
-                        </AccordionItem>
-                      );
-                    })}
-                </Accordion>
+                <IPSearchPanel addresses={data.ipAddresses} />
               </TabPanel>
             )}
             {scope?.includes("site") && (
               <TabPanel>
                 <SimpleGrid gap={5} columns={[1, null, null, 2, null, 3]}>
                   <>
-                    {data?.sites
+                    {data.sites
                       .sort((a, b) => (a.display < b.display ? -1 : 1))
                       .map((site) => (
                         <SiteSearchCard key={site.id} site={site} />
@@ -129,7 +109,7 @@ const SearchPage: React.FC = () => {
             {scope?.includes("vlan") && (
               <TabPanel>
                 <SimpleGrid gap={5} columns={[1, null, null, 2, null, 3]}>
-                  {data?.vlans.map((vlan) => (
+                  {data.vlans.sort((a, b) => a.vid - b.vid).map((vlan) => (
                     <VLANCard key={vlan.id} vlan={vlan} />
                   ))}
                 </SimpleGrid>
