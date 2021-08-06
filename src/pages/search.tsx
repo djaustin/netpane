@@ -55,8 +55,7 @@ const SearchPage: React.FC = () => {
       </Head>
       <Stack direction={{ base: "column", lg: "row" }} spacing={10}>
         <GradientHeading flexShrink={0}>
-          {data?.ipAddresses
-            ? data.ipAddresses.length > 0
+          {data ? resultCount() > 0
               ? `Search results for '${queryString}'`
               : `No results for '${queryString}'`
             : `Searching for '${queryString}'...`}
