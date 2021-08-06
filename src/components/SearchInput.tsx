@@ -35,7 +35,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
   const router = useRouter();
   const backgroundColor = useColorModeValue("gray.200", "gray.800");
   const checkboxGroup = useCheckboxGroup({
-    defaultValue: defaultCheckboxValue || ["ip-address", 'site', 'vlan'],
+    defaultValue: defaultCheckboxValue || ["ip-address", "site", "vlan"],
   });
 
   const onKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {

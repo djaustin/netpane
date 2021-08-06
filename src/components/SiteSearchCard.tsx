@@ -27,6 +27,7 @@ const SiteSearchCard: React.FC<SiteSearchCardProps> = ({ site }) => {
     >
       <HStack spacing="4" align="flex-start">
         <Center
+          flexShrink={0}
           onClick={() => router.push(`/sites/${site.slug}`)}
           cursor="pointer"
           w="100px"

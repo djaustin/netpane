@@ -27,6 +27,7 @@ const VLANCard: React.FC<VLANCardProps> = ({ vlan }) => {
     >
       <HStack spacing="4" align="flex-start">
         <Center
+          flexShrink={0}
           onClick={() =>
             router.push(`/sites/${vlan.site.slug}?vlanId=${vlan.vid}`)
           }
