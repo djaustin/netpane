@@ -29,7 +29,7 @@ describe("SearchInput", () => {
     user.click(screen.getByRole("button"));
 
     expect(mockPush).toHaveBeenCalledTimes(1);
-    expect(mockPush).toHaveBeenCalledWith(`/search?query=${queryText}`);
+    expect(mockPush).toHaveBeenCalledWith(`/search?query=${queryText}&scope=ip-address,site,vlan`);
   });
   it("should not redirect to the search page when the textbox is empty and the button is clicked", () => {
     render(<SearchInput hasButton />);
@@ -42,7 +42,7 @@ describe("SearchInput", () => {
     user.type(screen.getByRole("textbox"), queryText + "{enter}");
 
     expect(mockPush).toHaveBeenCalledTimes(1);
-    expect(mockPush).toHaveBeenCalledWith(`/search?query=${queryText}`);
+    expect(mockPush).toHaveBeenCalledWith(`/search?query=${queryText}&scope=ip-address,site,vlan`);
   });
   it("should not redirect to the search page when the textbox is empty and the button is clicked", () => {
     render(<SearchInput hasButton />);
