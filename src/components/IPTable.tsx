@@ -13,6 +13,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { IPTableItem } from "models/IPTableData";
+import { useRouter } from "next/router";
 import React, { FC } from "react";
 import {
   Column,
@@ -86,7 +87,11 @@ const IPTable: FC<IPTableProps> = ({
     state,
     setGlobalFilter,
   } = useTable(
-    { columns, data, defaultColumn },
+    {
+      columns,
+      data,
+      defaultColumn,
+    },
     useFilters,
     useGlobalFilter,
     useSortBy

@@ -12,7 +12,6 @@ import SiteCard from "../components/SiteCard";
 const Index: React.FC = () => {
   const { data } = useSWR<Site[]>("/api/sites", jsonFetcher);
 
-  if (data) console.log(data);
   return (
     <>
       <Head>
@@ -21,7 +20,7 @@ const Index: React.FC = () => {
       <Container centerContent>
         <GradientHeading fontSize={["6xl", "9xl"]}>Netpane</GradientHeading>
         <HStack align="center" mt={5} w="100%">
-          <SearchInput hasButton w="full" />
+          <SearchInput hasButton w="100%" />
         </HStack>
       </Container>
       <SimpleGrid mt={16} rowGap={10} columns={[1, null, null, 2, null, 3]}>

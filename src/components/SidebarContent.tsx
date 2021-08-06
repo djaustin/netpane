@@ -32,7 +32,13 @@ const SidebarContent = ({ onClose, ...rest }: SidebarContentProps) => {
       h="full"
       {...rest}
     >
-      <Flex my={5} alignItems="center" ml="8" mr='4' justifyContent="space-between">
+      <Flex
+        my={5}
+        alignItems="center"
+        ml="8"
+        mr="4"
+        justifyContent="space-between"
+      >
         <Text fontSize="2xl" fontWeight="bold">
           Netpane
         </Text>

@@ -9,9 +9,10 @@ import { NextApiHandler } from "next";
 
 const handler: NextApiHandler<IPTableItem[]> = async (req, res) => {
   const siteSlug = req.query.siteSlug as string;
+  const vlanId = req.query.vlanId as string;
 
   const sitePrefixResponse = await netboxAPI.get<NetboxResponse<Prefix>>(
-    `/ipam/prefixes?site=${siteSlug}`
+    `/ipam/prefixes?site=${siteSlug}${vlanId ? "&vlan_vid=" + vlanId : ""}`
   );
 
   const ipRequestPromises = sitePrefixResponse.data.results.map(

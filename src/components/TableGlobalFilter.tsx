@@ -22,7 +22,7 @@ const TableGlobalFilter: React.FC<TableGlobalFilterProps> = ({
         <FiSearch />
       </InputLeftAddon>
       <Input
-        aria-label='search all columns'
+        aria-label="search all columns"
         value={globalFilter || ""}
         onChange={(e) => {
           setGlobalFilter(e.target.value || undefined);

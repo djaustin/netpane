@@ -1,3 +1,8 @@
-import { SearchResult } from "./SearchResult";
+import { IPResult } from "./IPResult";
+import { Site, VLAN } from "./__generated__/netboxAPI";
 
-export type SearchResponse = SearchResult[];
+export type SearchResponse = {
+  ipAddresses: IPResult[];
+  sites: Site[];
+  vlans: VLAN[];
+};

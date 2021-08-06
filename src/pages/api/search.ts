@@ -1,27 +1,53 @@
 import netboxAPI from "integrations/netboxAPI";
 import _ from "lodash";
-import { SearchResult } from "models/SearchResult";
+import { IPResult } from "models/IPResult";
 import {
   IPAddress,
   NetboxResponse,
   Prefix,
+  Site,
+  VLAN,
 } from "models/__generated__/netboxAPI";
 import { NextApiHandler } from "next";
 
-const handler: NextApiHandler<SearchResult[]> = async (req, res) => {
-  if (!req.query.query) return res.status(400).end();
+const handler: NextApiHandler<any> = async (req, res) => {
+  if (!req.query.query || !req.query.scope) return res.status(400).end();
+  const queryString = req.query.query as string;
+  const scopes = (req.query.scope as string).split(",");
+  const emptyPromise = Promise.resolve([]);
+
+  const ipAddressPromise = scopes.includes("ip-address")
+    ? fetchIPAddresses(queryString)
+    : emptyPromise;
+  const sitePromise = scopes.includes("site")
+    ? fetchSites(queryString)
+    : emptyPromise;
+  const vlanPromise = scopes.includes("vlan")
+    ? fetchVLANs(queryString)
+    : emptyPromise;
+
+  const [ipAddresses, sites, vlans] = await Promise.all([
+    ipAddressPromise,
+    sitePromise,
+    vlanPromise,
+  ]);
+
+  res.status(200).json({ sites, vlans, ipAddresses });
+};
+
+async function fetchIPAddresses(query: string) {
   const sitePrefixResponse = await netboxAPI.get<NetboxResponse<Prefix>>(
     `/ipam/prefixes?limit=9999`
   );
   const ipRequestPromises = sitePrefixResponse.data.results.map((prefix) =>
-    getIPAddressesWithPrefix(prefix, req.query.query as string)
+    getIPAddressesWithPrefix(prefix, query)
   );
 
   const ipResponses = await Promise.all(ipRequestPromises);
   const addresses = ipResponses.flat();
 
   // Extract sites with matches
-  const siteMap: Record<number, SearchResult> = {};
+  const siteMap: Record<number, IPResult> = {};
   addresses.forEach((address) => {
     const nestedSite = address.prefix.site;
     siteMap[nestedSite.id] = { site: nestedSite, results: [] };
@@ -41,8 +67,8 @@ const handler: NextApiHandler<SearchResult[]> = async (req, res) => {
     }));
   });
 
-  res.status(200).json(Object.values(siteMap));
-};
+  return Object.values(siteMap);
+}
 
 async function getIPAddressesWithPrefix(
   prefix: Prefix,
@@ -57,4 +83,19 @@ async function getIPAddressesWithPrefix(
     prefix,
   }));
 }
+
+async function fetchSites(query: string) {
+  const response = await netboxAPI.get<NetboxResponse<Site>>(
+    `/dcim/sites?q=${query}&limit=9999`
+  );
+  return response.data.results;
+}
+
+async function fetchVLANs(query: string) {
+  const response = await netboxAPI.get<NetboxResponse<VLAN>>(
+    `/ipam/vlans?q=${query}&limit=9999`
+  );
+  return response.data.results;
+}
+
 export default handler;
