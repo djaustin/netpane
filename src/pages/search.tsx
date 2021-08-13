@@ -1,13 +1,6 @@
 import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
   Center,
   CircularProgress,
-  Heading,
-  HStack,
   SimpleGrid,
   Stack,
   Tab,
@@ -18,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import GradientHeading from "components/GradientHeading";
 import IPSearchPanel from "components/IPSearchPanel";
-import IPTable from "components/IPTable";
 import SearchInput from "components/SearchInput";
 import SiteSearchCard from "components/SiteSearchCard";
 import VLANCard from "components/VLANCard";
@@ -95,7 +87,17 @@ const SearchPage: React.FC = () => {
             )}
             {scope?.includes("site") && (
               <TabPanel>
-                <SimpleGrid gap={5} columns={{ base: 1, lg: 2, xl: 3, "4xl": 4, "5xl": 5, "6xl": 6 }}>
+                <SimpleGrid
+                  gap={5}
+                  columns={{
+                    base: 1,
+                    lg: 2,
+                    xl: 3,
+                    "4xl": 4,
+                    "5xl": 5,
+                    "6xl": 6,
+                  }}
+                >
                   <>
                     {data.sites
                       .sort((a, b) => (a.display < b.display ? -1 : 1))
@@ -108,10 +110,22 @@ const SearchPage: React.FC = () => {
             )}
             {scope?.includes("vlan") && (
               <TabPanel>
-                <SimpleGrid gap={5} columns={{ base: 1, lg: 2, xl: 3, "4xl": 4, "5xl": 5, "6xl": 6 }}>
-                  {data.vlans.sort((a, b) => a.vid - b.vid).map((vlan) => (
-                    <VLANCard key={vlan.id} vlan={vlan} />
-                  ))}
+                <SimpleGrid
+                  gap={5}
+                  columns={{
+                    base: 1,
+                    lg: 2,
+                    xl: 3,
+                    "4xl": 4,
+                    "5xl": 5,
+                    "6xl": 6,
+                  }}
+                >
+                  {data.vlans
+                    .sort((a, b) => a.vid - b.vid)
+                    .map((vlan) => (
+                      <VLANCard key={vlan.id} vlan={vlan} />
+                    ))}
                 </SimpleGrid>
               </TabPanel>
             )}

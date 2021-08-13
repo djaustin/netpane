@@ -1,4 +1,4 @@
-name,slug
-Gondor,gondor
-Mordor,mordor
-Rivendell,rivendell
+name,slug,description
+Gondor,gondor,Gondor is the most prominent kingdom of Men in Middle-earth.
+Mordor,mordor,"Mordor is a black, volcanic plain located in the southeast of Middle-earth to the East of Gondor, Ithilien and the great river Anduin."
+Rivendell,rivendell,"Also known as Imladris, is an Elven town and the house of Elrond located in Middle-earth."
