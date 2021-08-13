@@ -9,7 +9,7 @@ import React, { ReactNode } from "react";
 import MobileNav from "./MobileNav";
 import SidebarContent from "./SidebarContent";
 
-export default function SimpleSidebar({ children }: { children: ReactNode }) {
+export default function Sidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>

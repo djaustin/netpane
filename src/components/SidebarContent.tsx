@@ -14,6 +14,7 @@ import useSWR from "swr";
 import { DarkModeSwitch } from "./DarkModeSwitch";
 import NavItem from "./NavItem";
 import SiteAccordion from "./SiteAccordion";
+import UserDetails from "./UserDetails";
 
 type SidebarContentProps = BoxProps & {
   onClose: () => void;
@@ -32,6 +33,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarContentProps) => {
       h="full"
       {...rest}
     >
+      <Box mx="4" mt="4">
+        <UserDetails />
+      </Box>
       <Flex
         my={5}
         alignItems="center"
@@ -42,9 +46,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarContentProps) => {
         <Text fontSize="2xl" fontWeight="bold">
           Netpane
         </Text>
-        <Box display={{ base: "none", md: "block" }} alignItems="center">
-          <DarkModeSwitch />
-        </Box>
+        <DarkModeSwitch />
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       <Flex h="calc(100% - 80px)" overflowY="auto" mt={4} direction="column">

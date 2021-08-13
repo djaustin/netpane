@@ -4,14 +4,16 @@ import SearchInput from "components/SearchInput";
 import SiteCardSkeleton from "components/SiteCardSkeleton";
 import jsonFetcher from "integrations/jsonFetcher";
 import { Site } from "models/__generated__/netboxAPI";
+import { GetServerSideProps } from "next";
+import { getSession, useSession } from "next-auth/client";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import React from "react";
 import useSWR from "swr";
 import SiteCard from "../components/SiteCard";
 
 const Index: React.FC = () => {
   const { data } = useSWR<Site[]>("/api/sites", jsonFetcher);
-
   return (
     <>
       <Head>
@@ -58,5 +60,18 @@ const Index: React.FC = () => {
     </>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getSession({ctx})
+  if(!session) return {
+    redirect: {
+      destination: '/login',
+      permanent: false
+    }
+  }
+  return {
+    props: {}
+  }
+}
 
 export default Index;

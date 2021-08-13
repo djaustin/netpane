@@ -18,6 +18,7 @@ import netboxAPI from "integrations/netboxAPI";
 import { IPTableItem } from "models/IPTableData";
 import { NetboxResponse, Site } from "models/__generated__/netboxAPI";
 import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/client";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -156,6 +157,8 @@ const SitePage = ({ site }: SitePageProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getSession({ctx})
+  if(!session) return {redirect: { destination: '/login', permanent: false}}
   const slug = ctx.query.slug as string;
   const results = (
     await netboxAPI.get<NetboxResponse<Site[]>>(`/dcim/sites?slug=${slug}`)

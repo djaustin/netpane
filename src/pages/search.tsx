@@ -16,6 +16,8 @@ import SiteSearchCard from "components/SiteSearchCard";
 import VLANCard from "components/VLANCard";
 import jsonFetcher from "integrations/jsonFetcher";
 import { SearchResponse } from "models/SearchResponse";
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/client";
 import Error from "next/error";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -139,5 +141,18 @@ const SearchPage: React.FC = () => {
     </>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getSession({ctx})
+  if(!session) return {
+    redirect: {
+      destination: '/login',
+      permanent: false
+    }
+  }
+  return {
+    props: {}
+  }
+}
 
 export default SearchPage;

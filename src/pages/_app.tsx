@@ -1,9 +1,10 @@
 import { ChakraProvider, Progress } from "@chakra-ui/react";
+import { Provider } from "next-auth/client";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import SimpleSidebar from "../components/Sidebar";
+import Sidebar from "../components/Sidebar";
 import theme from "../theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -30,25 +31,27 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <link rel="shortcut icon" href="/favicon.png" />
       </Head>
-      <ChakraProvider resetCSS theme={theme}>
-        <Progress
-          zIndex="9999"
-          hidden={!loading}
-          position="fixed"
-          top="0"
-          left="0"
-          right="0"
-          isIndeterminate
-          size="xs"
-        />
-        {asPath === "/login" ? (
-          <Component {...pageProps} />
-        ) : (
-          <SimpleSidebar>
+      <Provider session={pageProps.session}>
+        <ChakraProvider resetCSS theme={theme}>
+          <Progress
+            zIndex="9999"
+            hidden={!loading}
+            position="fixed"
+            top="0"
+            left="0"
+            right="0"
+            isIndeterminate
+            size="xs"
+          />
+          {asPath.includes("/login") ? (
             <Component {...pageProps} />
-          </SimpleSidebar>
-        )}
-      </ChakraProvider>
+          ) : (
+            <Sidebar>
+              <Component {...pageProps} />
+            </Sidebar>
+          )}
+        </ChakraProvider>
+      </Provider>
     </>
   );
 }
