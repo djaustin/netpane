@@ -23,7 +23,11 @@ const Index: React.FC = () => {
           <SearchInput hasButton w="100%" />
         </HStack>
       </Container>
-      <SimpleGrid mt={16} rowGap={10} columns={[1, null, null, 2, null, 3]}>
+      <SimpleGrid
+        mt={16}
+        rowGap={10}
+        columns={{ base: 1, lg: 2, xl: 3, "3xl": 4, "4xl": 5, "5xl": 6, "6xl": 8 }}
+      >
         {data ? (
           <>
             {data

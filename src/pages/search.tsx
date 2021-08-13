@@ -95,7 +95,7 @@ const SearchPage: React.FC = () => {
             )}
             {scope?.includes("site") && (
               <TabPanel>
-                <SimpleGrid gap={5} columns={[1, null, null, 2, null, 3]}>
+                <SimpleGrid gap={5} columns={{ base: 1, lg: 2, xl: 3, "4xl": 4, "5xl": 5, "6xl": 6 }}>
                   <>
                     {data.sites
                       .sort((a, b) => (a.display < b.display ? -1 : 1))
@@ -108,7 +108,7 @@ const SearchPage: React.FC = () => {
             )}
             {scope?.includes("vlan") && (
               <TabPanel>
-                <SimpleGrid gap={5} columns={[1, null, null, 2, null, 3]}>
+                <SimpleGrid gap={5} columns={{ base: 1, lg: 2, xl: 3, "4xl": 4, "5xl": 5, "6xl": 6 }}>
                   {data.vlans.sort((a, b) => a.vid - b.vid).map((vlan) => (
                     <VLANCard key={vlan.id} vlan={vlan} />
                   ))}

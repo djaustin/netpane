@@ -42,18 +42,25 @@ const VLANCard: React.FC<VLANCardProps> = ({ vlan }) => {
           </Text>
         </Center>
         <VStack spacing="0" h="full" align="flex-start" justify="flex-start">
-          <Text color="blue.500" fontSize="xs">
-            <Link as={NextLink} href={`/sites/${vlan.site.slug}`}>
-              {vlan.site.display}
-            </Link>
+          <Text color={vlan.site && "blue.500"} fontSize="xs">
+            {vlan.site ? 
+             <Link as={NextLink} href={`/sites/${vlan.site.slug}`}>
+             {vlan.site.display}
+           </Link>
+          : 
+            "No site"
+          }
           </Text>
           <Text fontSize="2xl" fontWeight="bold">
-            <Link
+            {vlan.site ? <Link
               as={NextLink}
               href={`/sites/${vlan.site.slug}?vlanId=${vlan.vid}`}
             >
               {vlan.name}
             </Link>
+            :
+            vlan.name
+            }
           </Text>
           <Text pt="1" fontSize="sm">
             {vlan.description}
