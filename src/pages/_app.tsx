@@ -1,12 +1,13 @@
 import { ChakraProvider, Progress } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import Head from "next/head";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import SimpleSidebar from "../components/Sidebar";
 import theme from "../theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { asPath } = useRouter();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const startLoad = () => {
@@ -40,9 +41,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           isIndeterminate
           size="xs"
         />
-        <SimpleSidebar>
+        {asPath === "/login" ? (
           <Component {...pageProps} />
-        </SimpleSidebar>
+        ) : (
+          <SimpleSidebar>
+            <Component {...pageProps} />
+          </SimpleSidebar>
+        )}
       </ChakraProvider>
     </>
   );
