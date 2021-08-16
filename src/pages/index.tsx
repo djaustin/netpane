@@ -28,7 +28,15 @@ const Index: React.FC = () => {
       <SimpleGrid
         mt={16}
         rowGap={10}
-        columns={{ base: 1, lg: 2, xl: 3, "3xl": 4, "4xl": 5, "5xl": 6, "6xl": 8 }}
+        columns={{
+          base: 1,
+          lg: 2,
+          xl: 3,
+          "3xl": 4,
+          "4xl": 5,
+          "5xl": 6,
+          "6xl": 8,
+        }}
       >
         {data ? (
           <>
@@ -62,16 +70,17 @@ const Index: React.FC = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await getSession({ctx})
-  if(!session) return {
-    redirect: {
-      destination: '/login',
-      permanent: false
-    }
-  }
+  const session = await getSession({ ctx });
+  if (!session)
+    return {
+      redirect: {
+        destination: `/auth/signin?callbackUrl=${process.env.NEXTAUTH_URL}${ctx.resolvedUrl}`,
+        permanent: false,
+      },
+    };
   return {
-    props: {}
-  }
-}
+    props: {},
+  };
+};
 
 export default Index;

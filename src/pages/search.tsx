@@ -143,16 +143,17 @@ const SearchPage: React.FC = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await getSession({ctx})
-  if(!session) return {
-    redirect: {
-      destination: '/login',
-      permanent: false
-    }
-  }
+  const session = await getSession({ ctx });
+  if (!session)
+    return {
+      redirect: {
+        destination: `/auth/signin?callbackUrl=${process.env.NEXTAUTH_URL}${ctx.resolvedUrl}`,
+        permanent: false,
+      },
+    };
   return {
-    props: {}
-  }
-}
+    props: {},
+  };
+};
 
 export default SearchPage;

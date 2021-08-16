@@ -157,8 +157,14 @@ const SitePage = ({ site }: SitePageProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await getSession({ctx})
-  if(!session) return {redirect: { destination: '/login', permanent: false}}
+  const session = await getSession({ ctx });
+  if (!session)
+    return {
+      redirect: {
+        destination: `/auth/signin?callbackUrl=${process.env.NEXTAUTH_URL}${ctx.resolvedUrl}`,
+        permanent: false,
+      },
+    };
   const slug = ctx.query.slug as string;
   const results = (
     await netboxAPI.get<NetboxResponse<Site[]>>(`/dcim/sites?slug=${slug}`)

@@ -8,7 +8,6 @@ const UserDetails = () => {
   return (
     <>
     { (!loading && !session) ?
-     
       <HStack justify="space-between">
         <HStack spacing="4">
           <Avatar size="xs" name='Not Applicable' />
