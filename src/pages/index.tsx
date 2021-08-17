@@ -1,7 +1,8 @@
-import { Center, Container, HStack, SimpleGrid } from "@chakra-ui/react";
+import { Center, Container, Flex, HStack, SimpleGrid } from "@chakra-ui/react";
 import GradientHeading from "components/GradientHeading";
 import SearchInput from "components/SearchInput";
 import SiteCardSkeleton from "components/SiteCardSkeleton";
+import SiteSearchCard from "components/SiteSearchCard";
 import jsonFetcher from "integrations/jsonFetcher";
 import { Site } from "models/__generated__/netboxAPI";
 import { GetServerSideProps } from "next";
@@ -26,6 +27,7 @@ const Index: React.FC = () => {
         </HStack>
       </Container>
       <SimpleGrid
+        spacing="5"
         mt={16}
         rowGap={10}
         columns={{
@@ -43,9 +45,9 @@ const Index: React.FC = () => {
             {data
               .sort((a, b) => (a.display < b.display ? -1 : 1))
               .map((site) => (
-                <Center key={site.id}>
+                <Flex key={site.id} justify="center">
                   <SiteCard site={site} />
-                </Center>
+                </Flex>
               ))}
           </>
         ) : (

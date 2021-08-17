@@ -6,6 +6,7 @@ import {
   Heading,
   Link,
   Stack,
+  VStack,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -41,7 +42,7 @@ export default function SiteCard({ site }: SiteCardProps) {
   }, []);
 
   return (
-    <Box
+    <VStack
       maxW={"270px"}
       w={"full"}
       mt={12}
@@ -60,27 +61,24 @@ export default function SiteCard({ site }: SiteCardProps) {
           borderColor={cardBackground}
         />
       </Flex>
-
-      <Box p={6}>
-        <Stack spacing={0} align={"center"} mb={5}>
-          <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
-            {site.display}
-          </Heading>
-        </Stack>
-        <Stack direction={"row"} justify={"center"} spacing={6}>
+      <VStack p="6" justify="space-between" h="full" w="full">
+        <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
+          {site.display}
+        </Heading>
+        <VStack spacing="6" w="full">
           <Stack spacing={0} align={"center"}>
             <Text fontWeight={600}>{site.vlan_count}</Text>
             <Text fontSize={"sm"} color={"gray.500"}>
               VLANs
             </Text>
           </Stack>
-        </Stack>
-        <Link as={NextLink} href={`/sites/${site.slug}`}>
-          <Button w={"full"} mt={8}>
-            View
-          </Button>
-        </Link>
-      </Box>
-    </Box>
+          <Link as={NextLink} href={`/sites/${site.slug}`}>
+            <Button w={"full"} mt={8}>
+              View
+            </Button>
+          </Link>
+        </VStack>
+      </VStack>
+    </VStack>
   );
 }

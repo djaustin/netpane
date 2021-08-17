@@ -90,7 +90,7 @@ const SearchPage: React.FC = () => {
             {scope?.includes("site") && (
               <TabPanel>
                 <SimpleGrid
-                  gap={5}
+                  spacing="5"
                   columns={{
                     base: 1,
                     lg: 2,
