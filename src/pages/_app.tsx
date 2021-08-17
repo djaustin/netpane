@@ -43,8 +43,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             isIndeterminate
             size="xs"
           />
-          {asPath.includes("auth") ||
-          [404, 500].includes(pageProps.statusCode) ? (
+          {asPath.includes("auth") ? (
             <Component {...pageProps} />
           ) : (
             <Sidebar>

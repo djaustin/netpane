@@ -5,14 +5,20 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useSession } from "next-auth/client";
 import React, { ReactNode } from "react";
 import MobileNav from "./MobileNav";
 import SidebarContent from "./SidebarContent";
 
 export default function Sidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [session, loading] = useSession();
+  const backgroundColor = useColorModeValue("gray.100", "gray.900");
+
+  if (!loading && !session) return <>{children}</>;
+
   return (
-    <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
+    <Box minH="100vh" bg={backgroundColor}>
       {/* Fixed sidebar on desktop/larger screens */}
       <SidebarContent
         onClose={() => onClose}
