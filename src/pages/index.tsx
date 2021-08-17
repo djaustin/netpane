@@ -20,12 +20,10 @@ const Index: React.FC = () => {
       <Head>
         <title>Netpane</title>
       </Head>
-      <Container centerContent>
-        <GradientHeading fontSize={["6xl", "9xl"]}>Netpane</GradientHeading>
-        <HStack align="center" mt={5} w="100%">
-          <SearchInput hasButton w="100%" />
-        </HStack>
-      </Container>
+      <GradientHeading>Organisation Summary</GradientHeading>
+      <HStack align="center" mt={5} w="100%">
+        <SearchInput hasButton w="100%" />
+      </HStack>
       <SimpleGrid
         spacing="5"
         mt={16}

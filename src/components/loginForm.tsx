@@ -7,6 +7,7 @@ import {
   chakra,
   CloseButton,
   Flex,
+  FlexProps,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -26,7 +27,7 @@ type Inputs = {
   password: string;
 };
 
-const LoginForm: React.FC = () => {
+const LoginForm: React.FC<FlexProps> = (flexProps) => {
   const {
     register,
     handleSubmit,
@@ -46,60 +47,62 @@ const LoginForm: React.FC = () => {
       password,
     });
   return (
-    <chakra.form onSubmit={handleSubmit(onSubmit)} minW="md">
-      <Stack spacing={4} w={"full"} maxW={"md"}>
-        <Flex justify="space-between">
-          <GradientHeading>Netpane</GradientHeading>
-          <DarkModeSwitch />
-        </Flex>
-        <Heading fontSize={"2xl"}>Sign in to your account</Heading>
-        {showError && (
-          <Alert status="error">
-            <AlertIcon />
-            <AlertDescription>
-              There was an error signing in with the credentials you provided.
-              Please try again.
-            </AlertDescription>
-            <CloseButton
-              onClick={() => setShowError(false)}
-              position="absolute"
-              right="8px"
-              top="8px"
+    <Flex w="full" justify="center" {...flexProps}>
+      <chakra.form w="full" onSubmit={handleSubmit(onSubmit)}>
+        <Stack justify="center" spacing={4} w={"full"}>
+          <Flex justify="space-between">
+            <GradientHeading>Netpane</GradientHeading>
+            <DarkModeSwitch />
+          </Flex>
+          <Heading fontSize={"2xl"}>Sign in to your account</Heading>
+          {showError && (
+            <Alert status="error">
+              <AlertIcon />
+              <AlertDescription>
+                There was an error signing in with the credentials you provided.
+                Please try again.
+              </AlertDescription>
+              <CloseButton
+                onClick={() => setShowError(false)}
+                position="absolute"
+                right="8px"
+                top="8px"
+              />
+            </Alert>
+          )}
+          <FormControl isInvalid={!!errors.username}>
+            <FormLabel>Username</FormLabel>
+            <Input
+              {...register("username", {
+                required: "Username is required",
+              })}
             />
-          </Alert>
-        )}
-        <FormControl isInvalid={!!errors.username}>
-          <FormLabel>Username</FormLabel>
-          <Input
-            {...register("username", {
-              required: "Username is required",
-            })}
-          />
-          <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.password}>
-          <FormLabel>Password</FormLabel>
-          <Input
-            type="password"
-            {...register("password", {
-              required: "Password is required",
-            })}
-          />
-          <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
-        </FormControl>
-        <Box>
-          <Button
-            type="submit"
-            w="full"
-            mt="6"
-            colorScheme={"blue"}
-            variant={"solid"}
-          >
-            Sign in
-          </Button>
-        </Box>
-      </Stack>
-    </chakra.form>
+            <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
+          </FormControl>
+          <FormControl isInvalid={!!errors.password}>
+            <FormLabel>Password</FormLabel>
+            <Input
+              type="password"
+              {...register("password", {
+                required: "Password is required",
+              })}
+            />
+            <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
+          </FormControl>
+          <Box>
+            <Button
+              type="submit"
+              w="full"
+              mt="6"
+              colorScheme={"blue"}
+              variant={"solid"}
+            >
+              Sign in
+            </Button>
+          </Box>
+        </Stack>
+      </chakra.form>
+    </Flex>
   );
 };
 
