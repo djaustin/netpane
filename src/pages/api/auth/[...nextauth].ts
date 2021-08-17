@@ -1,3 +1,5 @@
+import config from "config";
+import { authenticate } from "ldap-authentication";
 import NextAuth, { NextAuthOptions, User } from "next-auth";
 import Providers from "next-auth/providers";
 
@@ -10,16 +12,33 @@ const options: NextAuthOptions = {
         username: { type: "text" },
         password: { type: "password" },
       },
-      authorize: async ({ username, password }, req) => {
-        console.log(process.env.LOCAL_USERNAME, username);
-        console.log(process.env.LOCAL_PASSWORD, password);
-        let user: User;
+      authorize: async ({ username, password }) => {
+        // Check local env var user creds first before LDAP
         if (
           username === process.env.LOCAL_USERNAME &&
           password === process.env.LOCAL_PASSWORD
         )
-          user = { name: "Local Administrator" };
-        return user;
+          return { name: "Netpane Admin" };
+
+        // Search provided base DN for user credentials
+        const options = {
+          ldapOpts: {
+            url: config.ldapUrl,
+          },
+          adminDn: config.ldapAdminDn,
+          adminPassword: config.ldapAdminPassword,
+          userPassword: password,
+          userSearchBase: config.ldapUserSearchBase,
+          usernameAttribute: config.ldapUsernameAttribute,
+          username: username,
+        };
+        try {
+          const user = await authenticate(options);
+          return { ...user, name: user.displayName || user.gecos };
+        } catch (err) {
+          console.log(err);
+          return null;
+        }
       },
     }),
   ],

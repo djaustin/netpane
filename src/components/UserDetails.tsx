@@ -7,36 +7,36 @@ const UserDetails = () => {
   if (loading) return null;
   return (
     <>
-    { (!loading && !session) ?
-      <HStack justify="space-between">
-        <HStack spacing="4">
-          <Avatar size="xs" name='Not Applicable' />
-          <Text>Not logged in</Text>
+      {!loading && !session ? (
+        <HStack justify="space-between">
+          <HStack spacing="4">
+            <Avatar size="xs" name="Not Applicable" />
+            <Text>Not logged in</Text>
+          </HStack>
+          <IconButton
+            aria-label="logout"
+            size="xs"
+            variant="outline"
+            icon={<FiLogOut />}
+          />
         </HStack>
-        <IconButton
-          aria-label="logout"
-          size="xs"
-          variant="outline"
-          icon={<FiLogOut />}
-        />
-      </HStack>
-    :
-
-    <HStack justify="space-between">
-      <HStack spacing="4">
-        <Avatar size="xs" name={session?.user?.name} />
-        <Text>{session?.user?.name}</Text>
-      </HStack>
-      <IconButton
-        onClick={() => signOut()}
-        aria-label="logout"
-        size="xs"
-        variant="outline"
-        icon={<FiLogOut />}
-      />
-    </HStack>
-    }
-    </>);
+      ) : (
+        <HStack justify="space-between">
+          <HStack spacing="4">
+            <Avatar size="xs" name={session?.user?.name} />
+            <Text>{session?.user?.name}</Text>
+          </HStack>
+          <IconButton
+            onClick={() => signOut()}
+            aria-label="logout"
+            size="xs"
+            variant="outline"
+            icon={<FiLogOut />}
+          />
+        </HStack>
+      )}
+    </>
+  );
 };
 
 export default UserDetails;
