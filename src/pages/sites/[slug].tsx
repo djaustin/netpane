@@ -18,7 +18,6 @@ import netboxAPI from "integrations/netboxAPI";
 import { IPTableItem } from "models/IPTableData";
 import { NetboxResponse, Site } from "models/__generated__/netboxAPI";
 import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/client";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -84,7 +83,7 @@ const SitePage = ({ site }: SitePageProps) => {
                 Subnet
               </Button>
             </ButtonGroup>
-            <HStack>
+            <Stack direction={{ base: "column", lg: "row" }}>
               <ButtonGroup isAttached size="sm" variant="outline">
                 <Button
                   isActive={tableVariant === "simple"}
@@ -119,7 +118,7 @@ const SitePage = ({ site }: SitePageProps) => {
                   Comfortable
                 </Button>
               </ButtonGroup>
-            </HStack>
+            </Stack>
           </Stack>
         </Stack>
       </VStack>
@@ -157,14 +156,6 @@ const SitePage = ({ site }: SitePageProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await getSession({ ctx });
-  if (!session)
-    return {
-      redirect: {
-        destination: `/auth/signin?callbackUrl=${process.env.NEXTAUTH_URL}${ctx.resolvedUrl}`,
-        permanent: false,
-      },
-    };
   const slug = ctx.query.slug as string;
   const results = (
     await netboxAPI.get<NetboxResponse<Site[]>>(`/dcim/sites?slug=${slug}`)

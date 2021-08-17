@@ -42,7 +42,12 @@ const SiteSearchCard: React.FC<SiteSearchCardProps> = ({ site }) => {
               .join("")}
           </Text>
         </Center>
-        <VStack spacing="0" h="full" align="flex-start" justify="flex-start">
+        <VStack
+          overflowX="auto"
+          spacing="0"
+          align="flex-start"
+          justify="flex-start"
+        >
           <Text fontSize="2xl" fontWeight="bold">
             <Link as={NextLink} href={`/sites/${site.slug}`}>
               {site.display}

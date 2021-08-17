@@ -39,7 +39,12 @@ async function fetchIPAddresses(query: string) {
   const sitePrefixResponse = await netboxAPI.get<NetboxResponse<Prefix>>(
     `/ipam/prefixes?limit=9999`
   );
-  const ipRequestPromises = sitePrefixResponse.data.results.map((prefix) =>
+
+  // Filter out prefixes not linked to a site
+  const prefixes = sitePrefixResponse.data.results.filter(
+    (prefix) => prefix.site
+  );
+  const ipRequestPromises = prefixes.map((prefix) =>
     getIPAddressesWithPrefix(prefix, query)
   );
 
@@ -50,7 +55,7 @@ async function fetchIPAddresses(query: string) {
   const siteMap: Record<number, IPResult> = {};
   addresses.forEach((address) => {
     const nestedSite = address.prefix.site;
-    siteMap[nestedSite.id] = { site: nestedSite, results: [] };
+    if (nestedSite) siteMap[nestedSite.id] = { site: nestedSite, results: [] };
   });
 
   // Group each address under its site ID

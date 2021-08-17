@@ -49,7 +49,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarContentProps) => {
         <DarkModeSwitch />
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-      <Flex h="calc(100% - 80px)" overflowY="auto" mt={4} direction="column">
+      <Flex h="calc(100% - 120px)" overflowY="auto" mt={4} direction="column">
         <NavItem icon={FiHome} link="/">
           Home
         </NavItem>
