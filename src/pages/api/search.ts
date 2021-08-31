@@ -68,7 +68,7 @@ async function fetchIPAddresses(query: string) {
   Object.keys(addressesBySiteId).forEach((id) => {
     siteMap[id].results = addressesBySiteId[id].map((address) => ({
       ...address,
-      vlan: address.prefix.vlan?.display_name,
+      vlan: address.prefix.vlan?.display,
     }));
   });
 
