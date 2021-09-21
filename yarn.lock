@@ -852,6 +852,14 @@
     "@types/tinycolor2" "1.4.2"
     tinycolor2 "1.4.2"
 
+"@chakra-ui/theme-tools@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/theme-tools/-/theme-tools-1.2.1.tgz#940b169f54e1229da419fb644b215e1d41a724ae"
+  integrity sha512-e3Ql6SJyog7Rrk6DWUGyxzkzyAukodGIbH5DxTp9tLq10UhxZyGOYUQe7m/wL6XQ2zRQSIzcgvqWdTbxtkiwug==
+  dependencies:
+    "@chakra-ui/utils" "1.8.2"
+    "@ctrl/tinycolor" "^3.4.0"
+
 "@chakra-ui/theme@1.9.2":
   version "1.9.2"
   resolved "https://registry.npmjs.org/@chakra-ui/theme/-/theme-1.9.2.tgz"
@@ -892,10 +900,20 @@
   dependencies:
     "@chakra-ui/utils" "1.8.1"
 
-"@chakra-ui/utils@1.8.1", "@chakra-ui/utils@^1.7.0":
+"@chakra-ui/utils@1.8.1":
   version "1.8.1"
   resolved "https://registry.npmjs.org/@chakra-ui/utils/-/utils-1.8.1.tgz"
   integrity sha512-v0xL9U2ozDbHCl2kQTdJNOjUGT7ZjyFwEYuMW02ZaLkmLPj2w3G592iOsJ9Z9sBemQgoOrZGyTWqdxm6rhxJug==
+  dependencies:
+    "@types/lodash.mergewith" "4.6.6"
+    css-box-model "1.2.1"
+    framesync "5.3.0"
+    lodash.mergewith "4.6.2"
+
+"@chakra-ui/utils@1.8.2", "@chakra-ui/utils@^1.7.0":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/utils/-/utils-1.8.2.tgz#5a9f1f67c5f2232769fe7d009fcf96eebf3c2b4e"
+  integrity sha512-MnE4czCQCE87Ch1DfAdmZvObgRviw9wQ9Zti372P8VD1ILEdff/C5WBWHW6mgG3YcorPAxgnrNF3MmNE95jRkA==
   dependencies:
     "@types/lodash.mergewith" "4.6.6"
     css-box-model "1.2.1"
@@ -908,6 +926,11 @@
   integrity sha512-wFFXdejxwOT7r7AbD/IFl6Ve+n6VIOl2Drjcrn3JXmfwzL9NKB3xrtcdMXe8G/zW9jRXh+E6DUkTyEUjdUZErg==
   dependencies:
     "@chakra-ui/utils" "1.8.1"
+
+"@ctrl/tinycolor@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-3.4.0.tgz#c3c5ae543c897caa9c2a68630bed355be5f9990f"
+  integrity sha512-JZButFdZ1+/xAfpguQHoabIXkcqRRKpMrWKBkpEZZyxfY9C1DpADFB8PEqGSTeFr135SaTRfKqGKx5xSCLI7ZQ==
 
 "@emotion/babel-plugin@^11.3.0":
   version "11.3.0"
