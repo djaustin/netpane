@@ -11,7 +11,7 @@
   "dependencies": {
     "@chakra-ui/icons": "^1.0.5",
     "@chakra-ui/react": "^1.4.2",
-    "@chakra-ui/theme-tools": "1.1.8",
+    "@chakra-ui/theme-tools": "1.2.2",
     "@emotion/react": "11.4.1",
     "@emotion/styled": "11.3.0",
     "@testing-library/user-event": "^13.2.1",
