@@ -69,7 +69,7 @@ const SitePage = ({ site }: SitePageProps) => {
             <ButtonGroup colorScheme="green" size="sm" spacing="2">
               <Button
                 onClick={() =>
-                  openTab(`${config.baseURL}/ipam/vlans/add?site=${site.id}`)
+                  openTab(`/api/netbox/ipam/vlans/add?site=${site.id}`)
                 }
                 leftIcon={<FiPlus />}
               >
@@ -77,7 +77,7 @@ const SitePage = ({ site }: SitePageProps) => {
               </Button>
               <Button
                 onClick={() =>
-                  openTab(`${config.baseURL}/ipam/prefixes/add?site=${site.id}`)
+                  openTab(`/api/netbox/ipam/prefixes/add?site=${site.id}`)
                 }
                 leftIcon={<FiPlus />}
               >
@@ -140,7 +140,7 @@ const SitePage = ({ site }: SitePageProps) => {
                 isExternal
                 fontWeight="bold"
                 color={linkColor}
-                href={config.baseURL}
+                href="/api/netbox"
               >
                 Create IP addresses in Netbox
               </Link>
