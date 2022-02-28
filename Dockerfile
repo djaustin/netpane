@@ -29,4 +29,4 @@ USER nextjs
 
 EXPOSE 80
 
-CMD ["yarn", "start", "-p", "80"]
+CMD ["yarn", "start"]
