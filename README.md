@@ -93,6 +93,8 @@ rest-api/authentication/)
 
 `LDAP_USERNAME_ATTRIBUTE`: The LDAP attribute used for usernames on your chosen LDAP server e.g. `cn`
 
+`LDAP_USER_DISPLAY_NAME_ATTRIBUTE`: The LDAP attribute used for display names on your chosen LDAP server e.g. `gecos`
+
 ## Tech Stack
 
 **Client:** React, Chakra UI

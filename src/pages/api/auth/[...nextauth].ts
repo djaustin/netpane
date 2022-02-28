@@ -34,7 +34,14 @@ const options: NextAuthOptions = {
         };
         try {
           const user = await authenticate(options);
-          return { ...user, name: user.displayName || user.gecos };
+          return {
+            ...user,
+            name:
+              user[config.ldapUserDisplayNameAttribute] ||
+              user.displayName ||
+              user.gecos ||
+              user[config.ldapUsernameAttribute],
+          };
         } catch (err) {
           console.log(err);
           return null;

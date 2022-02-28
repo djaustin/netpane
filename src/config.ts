@@ -7,6 +7,7 @@ const config = {
   ldapAdminPassword: process.env.LDAP_BIND_PASSWORD,
   ldapUserSearchBase: process.env.LDAP_USER_SEARCH_BASE,
   ldapUsernameAttribute: process.env.LDAP_USERNAME_ATTRIBUTE,
+  ldapUserDisplayNameAttribute: process.env.LDAP_USER_DISPLAY_NAME_ATTRIBUTE,
 };
 
 export default config;
